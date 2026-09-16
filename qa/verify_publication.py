@@ -38,6 +38,12 @@ def verify():
               if p.is_file() and p.name != 'publication-manifest.json'}
     assert actual == set(manifest['files']), 'Unreviewed or missing site files'
     assert manifest['rawCaptureIncluded'] is False
+    assert manifest['appSourceRevision'] == 'HOVER_INTENT_V2_4'
+    assert manifest['combinedReportImages'] == 4
+    assert manifest['combinedReportSourceSha256'] == [
+        '1c2eff5549ea4bafb76b2d7e683e31ef5db07187161ffe2bda50f25859940b89',
+        '780e62eac61e35d1412bb59e0532ffe0561365fa7238459e4785470ac12c7f12',
+        '270a784611dca91aaa34d783ccdfcb916b249f9307a49d4d03cd66e6984518ba']
     for name, item in manifest['files'].items():
         path = SITE / name
         assert path.is_file() and not path.is_symlink(), name
@@ -70,12 +76,17 @@ def verify():
                 assert url.fragment in parsed[target].ids, 'Missing anchor: ' + link
             count += 1
     report = SITE / 'report/study-report.html'
+    combined = SITE / 'report/combined.html'
     assert all('section-' + str(i) in parsed[report.resolve()].ids for i in range(1, 13))
     assert len(parsed[report.resolve()].images) == 17
+    assert len(parsed[combined.resolve()].images) == 4
+    assert all(section in parsed[combined.resolve()].ids for section in ('motion', 'home', 'gaze'))
+    assert 'report/combined.html' in parsed[(SITE/'index.html').resolve()].links
+    assert 'V2.4' in (SITE/'install.html').read_text()
     snapshot = json.loads((SITE / 'report/study-report.json').read_text())
     assert snapshot['participants'] == 1 and snapshot['hand'] == 'RIGHT'
     assert snapshot['measuredProtocol'] == 'HOVER_INTENT_V2_1'
-    assert snapshot['appRevision'] == 'HOVER_INTENT_V2_2'
+    assert snapshot['appRevision'] == 'HOVER_INTENT_V2_3'
     def no_raw(value):
         if isinstance(value, dict):
             assert not set(value).intersection({'raw', 'samples', 'segments', 'events', 'pointsRaw', 'trialID', 'deviceID'})
@@ -113,6 +124,7 @@ def verify():
             assert not re.search(r'DEVELOPMENT_TEAM\s*=\s*"?[A-Z0-9]{10}', text), name
     result = {'status': 'PASS', 'trackedFiles': len(tracked), 'siteFiles': len(actual),
               'localLinksChecked': count, 'reportChapters': 12, 'reportImages': 17,
+              'combinedImages': 4, 'appSourceRevision': 'HOVER_INTENT_V2_4',
               'rawCaptureIncluded': False, 'replayStartsEmpty': True}
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return result

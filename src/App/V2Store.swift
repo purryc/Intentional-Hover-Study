@@ -3,6 +3,7 @@ import SwiftUI
 
 @MainActor final class V2Store: ObservableObject {
   let engine = V2Engine()
+  let gaze = GazeCapture()
   @Published var config = V2Config()
   @Published var participant = "P01"
   @Published var revision = 0
@@ -15,17 +16,21 @@ import SwiftUI
   @Published var canvas = CGSize.zero
   @Published var simulation = false
   @Published var simulating = false
+  @Published private(set) var storageLoading = false
   private var logger: DailyCSVLogger?
   private var timer: Timer?
   private var inputSequence = 0, ticks = 0
   private var deviceID = ""
   private var handlingError = false
+  private var startPendingAfterGaze = false
+  private var storageGeneration = 0
   private let key = "HoverStudy.active.v2"
   var clock: Double { ProcessInfo.processInfo.systemUptime }
   var ready: Bool {
-    simulation
-      || (["iPad14,5", "iPad14,6"].contains(deviceID) && abs(canvas.width - 1366) < 1
-        && abs(canvas.height - 1024) < 1 && hoverSeen)
+    !storageLoading && logger != nil && error == nil
+      && (simulation
+        || (["iPad14,5", "iPad14,6"].contains(deviceID) && abs(canvas.width - 1366) < 1
+          && abs(canvas.height - 1024) < 1 && hoverSeen))
   }
   var planned: [V2Trial] { (try? V2Schedule.make(config, seed: 0)) ?? [] }
   var countLabel: String {
@@ -45,14 +50,31 @@ import SwiftUI
       }
     #endif
     if ProcessInfo.processInfo.arguments.contains("--v2-demo") { simulation = true }
+    // One-time maintenance for the user-requested abandoned A1 session.
+    // The journal remains append-only; ordinary launches keep recovery enabled.
+    if ProcessInfo.processInfo.arguments.contains("--discard-unfinished-v2-a1"),
+      let data = UserDefaults.standard.data(forKey: key),
+      let checkpoint = try? JSONDecoder().decode(V2Checkpoint.self, from: data),
+      !checkpoint.completed,
+      checkpoint.schedule.indices.contains(checkpoint.index),
+      checkpoint.schedule[checkpoint.index].task == .A1
+    {
+      UserDefaults.standard.removeObject(forKey: key)
+    }
     engine.onEvent = { [weak self] in self?.record($0) }
+    gaze.onObservation = { [weak self] in self?.recordGaze($0) }
+    gaze.onFinished = { [weak self] quality in self?.gazeFinished(quality) }
+    gaze.onTrackingChange = { [weak self] tracked, reason in
+      guard let self, self.engine.running else { return }
+      self.recordGazeEvent(tracked ? "GAZE_TRACKING_RESUMED" : "GAZE_TRACKING_LOST", ["reason": reason])
+    }
     engine.onCheckpoint = { [weak self] cp in
       guard let self else { return }
       if cp.completed {
         UserDefaults.standard.removeObject(forKey: self.key)
-        if self.config.revision == nil {
+        if !self.config.usesContentTargets {
           self.config.revision = V2RevisionConfig()
-          self.notice = "旧会话已结束，下一会话使用 V2.2 的有效题重试与小目标配置。"
+          self.notice = "本组结束，下一次实验使用新版内容对象。"
         }
       } else if let data = try? JSONEncoder().encode(cp) {
         UserDefaults.standard.set(data, forKey: self.key)
@@ -64,13 +86,15 @@ import SwiftUI
       config = cp.config
       participant = cp.participant
       simulation = cp.synthetic
-      openLogger()
-      var persisted = try? logger?.persistedOutcome(trialID: cp.trialID)
-      persisted?.plannedIndex = cp.index + 1
-      engine.restore(cp, time: clock, persisted: persisted)
+      openLogger(restoring: cp)
     } else {
       openLogger()
     }
+    #if targetEnvironment(simulator)
+      if ProcessInfo.processInfo.arguments.contains("--short-reading") && engine.configurable {
+        config.snippetSeconds = 1
+      }
+    #endif
     timer = Timer.scheduledTimer(withTimeInterval: 1 / 30, repeats: true) { [weak self] _ in
       Task { @MainActor in self?.tick() }
     }
@@ -81,21 +105,48 @@ import SwiftUI
     canvas = size
     if engine.running && !ready { engine.pause(clock, reason: "GEOMETRY_CHANGED") }
   }
-  func openLogger() {
-    guard logger == nil else { return }
-    do {
-      let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-      logger = try DailyCSVLogger(
-        directory: documents.appendingPathComponent(simulation ? "SimulatedData" : "Data"),
-        synthetic: simulation)
-      logger?.onError = { [weak self] message in
-        Task { @MainActor in self?.storageFailure(message) }
+  func openLogger(restoring checkpoint: V2Checkpoint? = nil) {
+    guard logger == nil, !storageLoading else { return }
+    storageLoading = true
+    storageGeneration += 1
+    let generation = storageGeneration
+    let synthetic = simulation
+    let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    let directory = documents.appendingPathComponent(synthetic ? "SimulatedData" : "Data")
+    Task.detached(priority: .utility) { [weak self] in
+      do {
+        // Full journal validation can take longer than the iPadOS scene-create watchdog.
+        let opened = try DailyCSVLogger(directory: directory, synthetic: synthetic)
+        var persisted: TrialOutcome?
+        if let checkpoint { persisted = try opened.persistedOutcome(trialID: checkpoint.trialID) }
+        if let checkpoint { persisted?.plannedIndex = checkpoint.index + 1 }
+        let restoredOutcome = persisted
+        let previousFiles = opened.files()
+        await MainActor.run { [weak self] in
+          guard let self, self.storageGeneration == generation else { return }
+          self.logger = opened
+          opened.onError = { [weak self] message in
+            Task { @MainActor in self?.storageFailure(message) }
+          }
+          self.files = previousFiles
+          self.stats = opened.snapshot()
+          if let checkpoint { self.engine.restore(checkpoint, time: self.clock, persisted: restoredOutcome) }
+          self.storageLoading = false
+          self.revision &+= 1
+        }
+      } catch {
+        let message = error.localizedDescription
+        await MainActor.run { [weak self] in
+          guard let self, self.storageGeneration == generation else { return }
+          self.error = message
+          self.storageLoading = false
+          self.revision &+= 1
+        }
       }
-      files = logger?.files() ?? []
-    } catch { self.error = error.localizedDescription }
+    }
   }
   func changeSimulation(_ value: Bool) {
-    guard engine.configurable else { return }
+    guard engine.configurable, !storageLoading else { return }
     try? logger?.flush()
     logger = nil
     simulation = value
@@ -105,13 +156,63 @@ import SwiftUI
     guard ready, error == nil, engine.configurable else { return }
     do {
       try logger?.flush()
+      var seed = UInt64.random(in: 1...UInt64.max)
+      #if targetEnvironment(simulator)
+        if let argument = ProcessInfo.processInfo.arguments.first(where: { $0.hasPrefix("--v2-seed=") }),
+          let fixed = UInt64(argument.dropFirst("--v2-seed=".count)) { seed = fixed }
+      #endif
       try engine.start(
-        participant: participant, config: config, seed: UInt64.random(in: 1...UInt64.max),
+        participant: participant, config: config, seed: seed,
         time: clock, synthetic: simulation)
     } catch { notice = error.localizedDescription }
     revision &+= 1
   }
+  func startOrResume() {
+    guard ready, error == nil else { return }
+    let activeConfig = engine.state == .paused ? engine.config : config
+    if activeConfig.usesGazeCollection && !simulation && !gaze.isReady {
+      guard !startPendingAfterGaze else { return }
+      startPendingAfterGaze = true
+      gaze.begin()
+      revision &+= 1
+      return
+    }
+    beginOrResumeNow()
+  }
+  private func beginOrResumeNow() {
+    if engine.state == .paused { engine.resume(clock) } else { start() }
+    if engine.running && (engine.config.usesGazeCollection || config.usesGazeCollection) {
+      recordGazeEvent(gaze.isReady ? "GAZE_CALIBRATION" : "GAZE_UNAVAILABLE", gaze.calibrationMetadata)
+    }
+    revision &+= 1
+  }
+  private func gazeFinished(_ quality: String) {
+    guard startPendingAfterGaze else { return }
+    startPendingAfterGaze = false
+    notice = gaze.status
+    beginOrResumeNow()
+  }
+  func redoOrRecover() {
+    if error != nil { retry() }
+    guard error == nil else { return }
+    if !engine.configurable && ready {
+      engine.redo(clock)
+      notice = ""
+    }
+    revision &+= 1
+  }
+  func endSession() {
+    guard !engine.configurable, !storageLoading, error == nil else { return }
+    let checkpoint = engine.snapshot
+    engine.end(clock)
+    flush()
+    if error != nil, let data = try? JSONEncoder().encode(checkpoint) {
+      UserDefaults.standard.set(data, forKey: key)
+    }
+    revision &+= 1
+  }
   func tick() {
+    gaze.tick(clock)
     if error == nil { engine.tick(clock) }
     ticks += 1
     revision &+= 1
@@ -119,6 +220,8 @@ import SwiftUI
   }
   func background() {
     engine.pause(clock, reason: "BACKGROUND")
+    gaze.stop()
+    startPendingAfterGaze = false
     flush()
   }
   func flush() { do { try logger?.flush() } catch { storageFailure(error.localizedDescription) } }
@@ -130,11 +233,17 @@ import SwiftUI
     handlingError = false
   }
   func retry() {
+    if logger == nil {
+      error = nil
+      openLogger()
+      return
+    }
     do {
       openLogger()
-      try logger?.retry()
+      guard let logger else { return }
+      try logger.retry()
       error = nil
-      notice = "已补写缓存，点击继续重做当前任务"
+      notice = "已补写缓存，点击“开始实验”继续"
     } catch { self.error = error.localizedDescription }
   }
   func export(_ file: URL? = nil) {
@@ -154,7 +263,8 @@ import SwiftUI
   func loadFiles() { files = logger?.files() ?? [] }
   func receive(_ s: InputSample) {
     if s.isHover && !s.isSynthetic { hoverSeen = true }
-    guard engine.running, s.isSynthetic == engine.synthetic else { return }
+    let betweenTrials = engine.config.revision != nil && [.success, .fail].contains(engine.state)
+    guard (engine.running || betweenTrials), s.isSynthetic == engine.synthetic else { return }
     inputSequence += 1
     let p = Geometry.local(s.point)
     var f = context(s.time)
@@ -180,11 +290,12 @@ import SwiftUI
       f["touchY"] = String(s.point.y)
     }
     var m = metadata()
+    m["sequencePhase"] = betweenTrials ? "INTER_TRIAL" : "TASK"
     m["inputSequence"] = String(inputSequence)
     m["touchID"] = s.touchID
     f["metadata"] = v2JSON(m)
     logger?.append(CSVRow(f, date: Date().addingTimeInterval(s.time - s.receivedTime)))
-    if error == nil { engine.ingest(s, sequence: inputSequence) }
+    if error == nil && engine.running { engine.ingest(s, sequence: inputSequence) }
   }
   private func metadata() -> [String: String] {
     [
@@ -193,7 +304,8 @@ import SwiftUI
       "attempt": String(engine.attempt),
       "taskID": engine.current?.task.rawValue ?? "", "posture": engine.config.posture,
       "scene": engine.current?.scene.rawValue ?? "", "condition": engine.current?.condition ?? "",
-      "contentVersion": V2Content.version,
+      "contentVersion": engine.config.contentVersion,
+      "gazeCollection": String(engine.config.usesGazeCollection),
     ]
   }
   private func context(_ t: Double) -> [String: String] {
@@ -242,13 +354,65 @@ import SwiftUI
     if event.type == "SESSION_START" {
       m["deviceIdentifier"] = deviceID
       m["osVersion"] = UIDevice.current.systemVersion
-      m["appVersion"] = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "2.2"
+      m["appVersion"] = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "2.3"
       m["phoneRect"] = "976,194,390,830"
       m["simulation"] = String(simulation)
+      m["gazeCollection"] = String(engine.config.usesGazeCollection)
     }
     f["metadata"] = v2JSON(m)
     logger?.append(CSVRow(f, date: Date().addingTimeInterval(event.time - clock)))
     if ["TRIAL_END", "SESSION_END", "TEST_PAUSE"].contains(event.type) { flush() }
+    if event.type == "SESSION_END" { gaze.stop() }
+  }
+  private func recordGazeEvent(_ type: String, _ detail: [String: String]) {
+    let now = clock
+    var f = context(now)
+    var m = metadata()
+    m.merge(detail) { _, new in new }
+    f["recordType"] = "EVENT"
+    f["eventType"] = type
+    f["timestampSource"] = "SYSTEM_UPTIME"
+    f["sampleSource"] = simulation ? "SIMULATED_SYSTEM" : "FRONT_CAMERA_GAZE"
+    f["metadata"] = v2JSON(m)
+    logger?.append(CSVRow(f))
+  }
+  private func recordGaze(_ observation: GazeObservation) {
+    let betweenTrials = [.success, .fail].contains(engine.state)
+    guard (engine.running || betweenTrials), engine.config.usesGazeCollection, !simulation else { return }
+    var f = context(observation.receivedTime)
+    var m = metadata()
+    m["calibrationID"] = gaze.calibrationID
+    m["gazeQuality"] = gaze.quality
+    m["gazeValidity"] = observation.reason
+    m["sequencePhase"] = betweenTrials ? "INTER_TRIAL" : "TASK"
+    if let age = gaze.calibrationAgeS { m["calibrationAgeS"] = String(age) }
+    m["arFrameTimestamp"] = String(observation.frameTime)
+    m["cameraFramesStored"] = "false"
+    if let raw = observation.raw {
+      m["rawCameraPlaneX"] = String(raw.x)
+      m["rawCameraPlaneY"] = String(raw.y)
+    }
+    if let screen = observation.screen {
+      let local = Geometry.local(screen)
+      f["x"] = String(screen.x)
+      f["y"] = String(screen.y)
+      f["localX"] = String(local.x)
+      f["localY"] = String(local.y)
+      m["phoneRegion"] = String(Geometry.contains(local))
+      if let object = engine.objects.filter({ $0.contains(local) }).min(by: {
+        $0.bounds.width * $0.bounds.height < $1.bounds.width * $1.bounds.height
+      }) {
+        m["gazeObjectID"] = object.id
+        m["gazeObjectBounds"] = "\(object.bounds.x),\(object.bounds.y),\(object.bounds.width),\(object.bounds.height)"
+      }
+    }
+    f["recordType"] = "SAMPLE"
+    f["inputType"] = "GAZE"
+    f["sampleSource"] = "FRONT_CAMERA_GAZE"
+    f["timestampSource"] = "ARFRAME_CAPTURE_TIMESTAMP_IN_METADATA_RECEIVED_UPTIME"
+    f["receivedMonotonicTime"] = String(observation.receivedTime)
+    f["metadata"] = v2JSON(m)
+    logger?.append(CSVRow(f))
   }
   func simulate() {
     guard simulation, engine.running, !simulating else { return }

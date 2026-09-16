@@ -82,8 +82,8 @@ def build(out, source):
     for name in ['quality.json', 'behavior-overview.json', 'motion-study.json', 'home-position.json']:
         assert data[name]['sha256'] == digest, name
     root = Path(__file__).resolve().parents[1]
-    status_path = root / 'qa/v2-2-verification.json'
-    status = json.loads(status_path.read_text()) if status_path.exists() else {'status': 'IN_PROGRESS', 'coreTests': '50 passed', 'unsignedIOSBuild': 'PASS', 'simulator': 'RUNNING', 'deviceInstall': 'PENDING', 'physicalPencilValidation': 'NOT_RUN'}
+    status_path = root / 'qa/v2-3-verification.json'
+    status = json.loads(status_path.read_text()) if status_path.exists() else {'status': 'IN_PROGRESS', 'physicalPencilValidation': 'NOT_RUN'}
     sections = []
     def add(title, content): sections.append('## ' + title + '\n\n' + content.strip())
     intro = '''# Hover Intent Study：行动轨迹与意图特征统一报告
@@ -94,7 +94,7 @@ def build(out, source):
 - 静态两特征模型在 C3 回顾性留组检验中识别23/27主动窗，却把20/69自然候选误报为主动；平衡准确率78.1%，目前不能作为可靠自动唤出规则。
 - B4 原协议成功7/12；独立几何扫描在8/12次圈选尝试发现闭合候选，A基线103次尝试中为0，但B1和C3自然各有1次，圈形并不等于意图。
 - 6个姿势×场景位置模型只有3个热点在后半段复现。固定50pt home过滤没有减少C3自然误报，并误排1个主动窗；应保留为位置参考，当前不部署硬过滤。
-- 新采集协议 V2.2 已修改目标范围和重试流程；下文实测结论全部来自旧 V2.1，不把新版实现当成新增实验结果。
+- 新采集协议 V2.3 已将C3改为配图里的蝴蝶，并简化界面；下文实测结论全部来自旧 V2.1，不把新版实现当成新增实验结果。
 
 本报告汇总此前两轮比较、静态意图区分、运动阶段、多选、A/B→C检验与home位置分析；完整原CSV、失败尝试及原菜单判定保留。图点击可查看原始分辨率。'''
     add('1. 参与者、采集概况与完整任务结果', section(r, '采集概况') + '\n\n### 14类任务结果\n\n' + section(r, '任务结果') + '\n\n### 同几何姿势配对\n\n' + section(r, '相同几何配对') + '\n\n### 用户覆核\n\n' + section(r, '用户覆核追溯'))
@@ -120,20 +120,21 @@ def build(out, source):
 - 自然候选标签来自指令，若要测真实误触，需要独立人工意图标注或用户确认；本轮没有真实误触地面真值。
 - 新一轮先练习 C 的零触屏条件，再固定特征与阈值，并用新参与者检验。失败重试保留全量尝试，用首次成功率和每题重试数避免“收齐有效数据=全部容易成功”的解释。''')
     status_table = '| 检查 | 实际状态 |\n| --- | --- |\n' + '\n'.join('| ' + k + ' | ' + str(v) + ' |' for k, v in status.items() if isinstance(v, (str, int)))
-    add('11. 本次采集App修订：V2.2（与实测结果分开）', '''
+    add('11. 本次采集App修订：V2.3（与实测结果分开）', '''
 A/C 用于有效baseline与混淆验证，B用于成功率和行为轨迹，因此采用不同推进策略。
 
 | 修订 | 新行为 |
 | --- | --- |
 | A1–A7 / C1–C3 | 失败保留记录，1.2秒后重试同一计划题；不换条件/几何，不增加原定进度，成功后进入下一题 |
-| 研究者重启A/C | “重新开始本题”保留当前尝试再重试；整组仍可明确结束并报告未完成配额 |
+| 重做当前次 | 保留当前尝试并重试原计划题；不增加计划进度。后台后“开始实验”继续 |
 | B1–B4 | 默认各12次（原各6次），B配平套数可独立配置；成功/失败均推进，所有尝试保留 |
 | 默认总量 | 156次短任务＋3段120秒阅读，姿势/任务仍任选 |
 | C1 | 24/36/48pt小圆，距离220pt，两方向两条件配平 |
 | C2 | 36×36pt标记，80×80pt终点窗口；中心起点与标记分离120pt，滚动需从标记接触开始 |
-| C3 | 48×48pt新闻路线缩略配图 / 图文卡片收藏星标 / 视频收藏星标；只框该具体对象 |
+| C3 | 新闻正文前配图、图文首卡图片和视频画面内固定配图，均指向同一授权素材里的蝴蝶；只框蝴蝶周围48×48pt，不指向收藏星标。新闻/图文随页面滚动；视频继续播放，配图本身固定，不作为动态视频物体跟踪 |
 | C3自然候选 | 同一指定小对象静默候选，反馈保持自然；不再把整个视频或卡片作为目标 |
-| 旧数据/旧会话 | 不改写；无revision的恢复配置继续按V2.1执行，新会话使用V2.2 |
+| 采集界面 | 只保留“开始实验”“重做当前次”“导出 CSV”三个任务操作；姿势、任务及参数放配置区，旧协议开发/恢复路径保留 |
+| 旧数据/旧会话 | 不改写；无revision配置保持V2.1，缺少contentTargets字段保持V2.2，新会话默认V2.3 |
 
 原CSV仍是旧目标与旧推进规则。新版缩小对象会改变候选机会，不能把新旧每分钟候选率不分协议直接比较。B1原菜单覆核只是本轮分析注释，新App仍要求完成屏幕上明确提示的菜单项。
 
@@ -179,7 +180,7 @@ python3 qa/build_study_report.py --source "data/HoverIntent_2026-09-15 2.csv" --
         assert header[:8] == b'\x89PNG\r\n\x1a\n', asset
         width, height = struct.unpack('>II', header[16:24])
         page = page.replace('src="' + html.escape(asset) + '"', 'src="' + html.escape(asset) + f'" width="{width}" height="{height}"')
-    snapshot = {'source': str(source), 'sha256': digest, 'bytes': source.stat().st_size, 'participants': 1, 'hand': 'RIGHT', 'runs': ['THUMB', 'CRADLE_INDEX'], 'measuredProtocol': 'HOVER_INTENT_V2_1', 'appRevision': 'HOVER_INTENT_V2_2', 'b1OverrideScope': '6 WRONG_MENU_ITEM records after MENU_OPEN with actual B; raw retained', 'sectionCount': len(sections), 'assets': sorted(set(assets)), 'evidenceFiles': {name: sha(out / name) for name in list(texts) + list(data)}, 'results': data, 'appVerification': status}
+    snapshot = {'source': str(source), 'sha256': digest, 'bytes': source.stat().st_size, 'participants': 1, 'hand': 'RIGHT', 'runs': ['THUMB', 'CRADLE_INDEX'], 'measuredProtocol': 'HOVER_INTENT_V2_1', 'appRevision': 'HOVER_INTENT_V2_3', 'b1OverrideScope': '6 WRONG_MENU_ITEM records after MENU_OPEN with actual B; raw retained', 'sectionCount': len(sections), 'assets': sorted(set(assets)), 'evidenceFiles': {name: sha(out / name) for name in list(texts) + list(data)}, 'results': data, 'appVerification': status}
     (out / 'study-report.md').write_text(markdown)
     (out / 'study-report.html').write_text(page)
     (out / 'study-report.json').write_text(json.dumps(snapshot, ensure_ascii=False, indent=2))

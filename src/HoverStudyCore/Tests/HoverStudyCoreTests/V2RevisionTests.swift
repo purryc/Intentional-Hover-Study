@@ -5,7 +5,7 @@ import XCTest
 extension V2Tests {
   func testRevisionDefaultsAndOldCheckpointCompatibility() throws {
     var new = V2Config()
-    XCTAssertEqual(new.protocolVersion, "HOVER_INTENT_V2_2")
+    XCTAssertEqual(new.protocolVersion, "HOVER_INTENT_V2_3")
     let rows = try V2Schedule.make(new, seed: 11)
     for task in [V2Task.B1, .B2, .B3, .B4] {
       let group = rows.filter { $0.task == task }
@@ -43,6 +43,8 @@ extension V2Tests {
       XCTAssertNotEqual(e.trialID, id)
       let event = events.last { $0.type == "TRIAL_START" }!
       XCTAssertEqual(event.metadata["redoOf"], id)
+      XCTAssertEqual(event.metadata["previousTrialID"], id)
+      XCTAssertEqual(event.metadata["transitionKind"], "RETRY")
       XCTAssertEqual(event.metadata["progressionPolicy"], "VALID_COMPLETION")
       XCTAssertFalse(e.outcomes[0].success)
       XCTAssertTrue(e.progress.contains("重做第 1 /"))
@@ -75,6 +77,8 @@ extension V2Tests {
       XCTAssertEqual(e.current!.ordinal, 2)
       XCTAssertEqual(e.attempt, 1)
       XCTAssertEqual(events.last { $0.type == "TRIAL_START" }!.metadata["progressionPolicy"], "PLANNED_ATTEMPTS")
+      XCTAssertEqual(events.last { $0.type == "TRIAL_START" }!.metadata["previousTrialID"], e.outcomes[0].trialID)
+      XCTAssertEqual(events.last { $0.type == "TRIAL_START" }!.metadata["transitionKind"], "NEXT_PLANNED")
     }
   }
 

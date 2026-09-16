@@ -74,44 +74,99 @@ public final class DailyCSVLogger: @unchecked Sendable {
         guard !quoted && values.count == columns.count else { throw StudyError.storage("已有 CSV 存在损坏的完整行，请先在 Finder 取出原文件检查。") }
         return Dictionary(uniqueKeysWithValues: zip(columns, values))
     }
+    private static func scanExisting(_ data: Data, afterHeader headerLength: Int) throws -> (records: Int, samples: Int, trials: Int, sequence: Int) {
+        let sample = Array("SAMPLE".utf8), event = Array("EVENT".utf8), trialEnd = Array("TRIAL_END".utf8)
+        let eventColumn = columns.firstIndex(of: "eventType")!
+        return try data.withUnsafeBytes { raw in
+            let bytes = raw.bindMemory(to: UInt8.self)
+            func matches(_ start: Int, _ end: Int, _ value: [UInt8]) -> Bool {
+                guard end - start == value.count else { return false }
+                for offset in value.indices where bytes[start + offset] != value[offset] { return false }
+                return true
+            }
+            var records = 0, samples = 0, trials = 0, maxSequence = 0
+            var rowStart = headerLength
+            while rowStart < bytes.count {
+                var field = 0, fieldStart = rowStart, position = rowStart
+                var quoted = false, sequence = 0, isSample = false, isEvent = false, isTrialEnd = false
+                while position < bytes.count {
+                    let byte = bytes[position]
+                    if byte == 34 {
+                        if quoted && position + 1 < bytes.count && bytes[position + 1] == 34 {
+                            position += 2
+                            continue
+                        }
+                        quoted.toggle()
+                    } else if (byte == 44 && !quoted) || byte == 10 {
+                        if field == 1 {
+                            guard fieldStart < position else { throw StudyError.storage("CSV 记录序号或记录类型损坏，请保留原文件后检查。") }
+                            for index in fieldStart..<position {
+                                let digit = bytes[index]
+                                guard digit >= 48 && digit <= 57,
+                                    sequence <= (Int.max - Int(digit - 48)) / 10 else {
+                                    throw StudyError.storage("CSV 记录序号或记录类型损坏，请保留原文件后检查。")
+                                }
+                                sequence = sequence * 10 + Int(digit - 48)
+                            }
+                        } else if field == 2 {
+                            isSample = matches(fieldStart, position, sample)
+                            isEvent = matches(fieldStart, position, event)
+                        } else if field == eventColumn {
+                            isTrialEnd = matches(fieldStart, position, trialEnd)
+                        }
+                        field += 1
+                        fieldStart = position + 1
+                        if byte == 10 { break }
+                    }
+                    position += 1
+                }
+                if position < bytes.count && String(bytes: bytes[rowStart..<position], encoding: .utf8) == nil {
+                    throw StudyError.storage("CSV 存在无效 UTF-8 字节，请保留原文件后检查。")
+                }
+                guard position < bytes.count, !quoted, field == columns.count else {
+                    throw StudyError.storage("已有 CSV 存在损坏的完整行，请先在 Finder 取出原文件检查。")
+                }
+                guard sequence > maxSequence, isSample || isEvent else {
+                    throw StudyError.storage("CSV 记录序号或记录类型损坏，请保留原文件后检查。")
+                }
+                maxSequence = sequence
+                records += 1
+                if isSample { samples += 1 }
+                if isTrialEnd { trials += 1 }
+                rowStart = position + 1
+            }
+            return (records, samples, trials, maxSequence)
+        }
+    }
     private func open(day: String) throws -> FileHandle {
         if let handle = handles[day] { stats.currentFile = filename(day); return handle }
         let url = directory.appendingPathComponent(filename(day))
         let fm = FileManager.default
         if !fm.fileExists(atPath: url.path) { try Data(Self.header.utf8).write(to: url, options: .atomic) }
-        var data = try Data(contentsOf: url)
+        var data = try Data(contentsOf: url, options: .mappedIfSafe)
         let header = Data(Self.header.utf8)
         guard data.starts(with: header) else { throw StudyError.schemaMismatch }
         var tail: Data?
         if data.last != 10 {
             guard let last = data.lastIndex(of: 10) else { throw StudyError.schemaMismatch }
-            tail = data.subdata(in: (last + 1)..<data.count)
+            tail = Data(data[(last + 1)..<data.count])
             let tailURL = directory.appendingPathComponent("\(filename(day)).partial-\(UUID().uuidString).bin")
             try tail!.write(to: tailURL, options: .atomic)
+            data = Data() // Release the mapping before truncating the incomplete tail.
             let repair = try FileHandle(forWritingTo: url)
             try repair.truncate(atOffset: UInt64(last + 1)); try repair.synchronize(); try repair.close()
-            data = data.prefix(last + 1)
+            data = try Data(contentsOf: url, options: .mappedIfSafe)
         }
-        guard let content = String(data: data, encoding: .utf8) else { throw StudyError.storage("CSV 存在无效 UTF-8 字节，请保留原文件后检查。") }
-        let lines = content.split(separator: "\n").dropFirst()
-        var maxSequence = 0
-        var sampleRows = 0, trialRows = 0
-        for line in lines {
-            let row = try Self.decodeLine(String(line))
-            guard let seq = Int(row["sequence"] ?? ""), seq > maxSequence, ["SAMPLE", "EVENT"].contains(row["recordType"] ?? "") else { throw StudyError.storage("CSV 记录序号或记录类型损坏，请保留原文件后检查。") }
-            maxSequence = seq
-            if row["recordType"] == "SAMPLE" { sampleRows += 1 }
-            if row["eventType"] == "TRIAL_END" { trialRows += 1 }
-        }
-        dailyRecords[day] = lines.count
-        dailySamples[day] = sampleRows; dailyTrials[day] = trialRows
-        stats.writtenSamples += sampleRows; stats.writtenTrials += trialRows
-        stats.writtenRecords += lines.count
-        sequences[day] = maxSequence
+        let existing = try Self.scanExisting(data, afterHeader: header.count)
+        dailyRecords[day] = existing.records
+        dailySamples[day] = existing.samples; dailyTrials[day] = existing.trials
+        stats.writtenSamples += existing.samples; stats.writtenTrials += existing.trials
+        stats.writtenRecords += existing.records
+        sequences[day] = existing.sequence
         let handle = try FileHandle(forWritingTo: url); try handle.seekToEnd(); handles[day] = handle; stats.currentFile = filename(day)
         if let tail {
-            sequences[day] = maxSequence + 1
-            let recovery = encode(["schemaVersion": "1", "sequence": String(maxSequence + 1), "recordType": "EVENT", "date": day, "timestamp": timestampFormatter.string(from: Date()), "eventType": "CSV_TAIL_RECOVERED", "sampleSource": synthetic ? "SIMULATED_SYSTEM" : "SYSTEM", "metadata": "{\"quarantinedBytes\":\(tail.count)}"])
+            sequences[day] = existing.sequence + 1
+            let recovery = encode(["schemaVersion": "1", "sequence": String(existing.sequence + 1), "recordType": "EVENT", "date": day, "timestamp": timestampFormatter.string(from: Date()), "eventType": "CSV_TAIL_RECOVERED", "sampleSource": synthetic ? "SIMULATED_SYSTEM" : "SYSTEM", "metadata": "{\"quarantinedBytes\":\(tail.count)}"])
             try handle.write(contentsOf: Data(recovery.utf8)); try handle.synchronize(); stats.writtenRecords += 1; dailyRecords[day, default: 0] += 1
         }
         return handle
@@ -200,16 +255,27 @@ public final class DailyCSVLogger: @unchecked Sendable {
     public func persistedOutcome(trialID: String) throws -> TrialOutcome? {
         try queue.sync {
             let files = try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil).filter { $0.pathExtension == "csv" }.sorted { $0.lastPathComponent > $1.lastPathComponent }
+            let needle = Data(trialID.utf8), trialEnd = Data("TRIAL_END".utf8)
             for file in files {
-                let content = try String(contentsOf: file, encoding: .utf8)
-                // A UUID cannot contain CSV punctuation; skip decoding unrelated journals/rows.
-                guard content.contains(trialID) else { continue }
-                for line in content.split(separator: "\n").dropFirst().reversed() where line.contains(trialID) && line.contains("TRIAL_END") {
-                    let r = try Self.decodeLine(String(line))
+                let content = try Data(contentsOf: file, options: .mappedIfSafe)
+                var searchEnd = content.count
+                // Search backward without decoding an entire multi-hundred-MB journal.
+                while let match = content.range(of: needle, options: .backwards, in: 0..<searchEnd) {
+                    let lineStart = content[..<match.lowerBound].lastIndex(of: 10).map { $0 + 1 } ?? 0
+                    let lineEnd = content[match.upperBound...].firstIndex(of: 10) ?? content.count
+                    let line = content.subdata(in: lineStart..<lineEnd)
+                    if line.range(of: trialEnd) != nil {
+                        guard let text = String(data: line, encoding: .utf8) else {
+                            throw StudyError.storage("CSV 存在无效 UTF-8 字节，请保留原文件后检查。")
+                        }
+                        let r = try Self.decodeLine(text)
                     if r["trialID"] == trialID && r["eventType"] == "TRIAL_END", let index = Int(r["plannedIndex"] ?? "") {
                         let error = r["errorType"] ?? ""
                         return TrialOutcome(plannedIndex: index, trialID: trialID, success: r["success"] == "true", error: error.isEmpty ? nil : error, isRepeat: r["isRepeat"] == "true")
                     }
+                    }
+                    if lineStart == 0 { break }
+                    searchEnd = lineStart
                 }
             }
             return nil

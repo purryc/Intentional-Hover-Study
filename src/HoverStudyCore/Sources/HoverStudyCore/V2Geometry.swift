@@ -78,7 +78,29 @@ public struct V2SceneState: Codable, Equatable, Sendable {
 }
 public enum V2Content {
   public static let version = "reading-2026-09-v2"
-  public static func focusObject(scene: V2Scene, state: V2SceneState, size: Double) -> V2Object {
+  public static func focusImage(scene: V2Scene, state: V2SceneState) -> V2Object {
+    let bounds: V2Rect
+    switch scene {
+    case .news: bounds = V2Rect(22, 230 - state.offset, 346, 194.625)
+    case .notes: bounds = V2Rect(10, 76 - state.offset, 180, 184)
+    case .video: bounds = V2Rect(22, 230, 300, 168.75)
+    case .abstract: bounds = V2Rect(0, 0, 0, 0)
+    }
+    var image = V2Object("\(scene.rawValue)-focus-scene", bounds, "", "image")
+    image.mediaID = "cover-1"
+    return image
+  }
+  public static func focusObject(scene: V2Scene, state: V2SceneState, size: Double, contentTargets: Bool = false) -> V2Object {
+    if contentTargets && scene != .abstract {
+      let image = focusImage(scene: scene, state: state)
+      // cover-1 is 640×360. Use exactly the same centered aspect-fill as the renderer.
+      let scale = max(image.bounds.width / 640, image.bounds.height / 360)
+      let x = image.bounds.x + image.bounds.width / 2 + (260 - 320) * scale
+      let y = image.bounds.y + image.bounds.height / 2 + (80 - 180) * scale
+      var focus = V2Object("\(scene.rawValue)-content-butterfly", V2Rect(x - size / 2, y - size / 2, size, size), "蝴蝶", "content-object")
+      focus.mediaID = image.mediaID
+      return focus
+    }
     switch scene {
     case .news:
       var photo = V2Object("news-focus-photo", V2Rect(300, 430 - state.offset, size, size), "", "image")
@@ -108,7 +130,7 @@ public enum V2Content {
     "这篇记录并不是一份必须完成的清单。每个人都有自己的步速，也会被不同的细节吸引。你可以选择其中一小段，也可以只在家附近走一圈，让熟悉的日常重新变得可见。",
     "傍晚时分，河面的颜色变深了。早上匆忙赶路的人开始慢下来，桥上的灯一盏一盏亮起。一天结束之前，还有足够的时间，把目光从目的地移到眼前的生活。",
   ]
-  public static func objects(scene: V2Scene, state: V2SceneState) -> [V2Object] {
+  public static func objects(scene: V2Scene, state: V2SceneState, contentTargets: Bool = false) -> [V2Object] {
     switch scene {
     case .abstract: return []
     case .news:
@@ -117,8 +139,9 @@ public enum V2Content {
         V2Object(
           "news-author", V2Rect(22, 179 - state.offset, 346, 35), "城市观察 · 原创专栏 · 2026年9月", "byline"),
       ]
+      if contentTargets { o.append(focusImage(scene: scene, state: state)) }
       for i in 0..<20 {
-        let y = 230 + Double(i) * 265 - state.offset
+        let y = 230 + (contentTargets ? 216 : 0) + Double(i) * 265 - state.offset
         o.append(
           V2Object(
             "news-p\(i)", V2Rect(22, y, 346, 180), paragraphs[i % paragraphs.count], "paragraph"))
@@ -151,11 +174,12 @@ public enum V2Content {
           V2Object(
             "note-\(i)", V2Rect(10 + Double(col) * 190, ys[col] - state.offset, 180, h),
             headlines[i % 6], "card"))
+        if contentTargets && i == 0 { o[o.count - 1].mediaID = "cover-1" }
         ys[col] += h + 12
       }
       return o
     case .video:
-      return [
+      var o = [
         V2Object(
           "video-\(state.videoIndex)", V2Rect(0, 60, 390, 740), headlines[state.videoIndex % 6],
           "video"),
@@ -166,6 +190,8 @@ public enum V2Content {
         V2Object("video-comment", V2Rect(327, 515, 55, 65), "◯", "control"),
         V2Object("video-save", V2Rect(327, 595, 55, 65), "☆", "control"),
       ]
+      if contentTargets { o.append(focusImage(scene: scene, state: state)) }
+      return o
     }
   }
   public static func maxOffset(scene: V2Scene, state: V2SceneState) -> Double {

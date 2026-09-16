@@ -29,13 +29,17 @@ for n,row in enumerate(rows,2):
   try:json.loads(row['metadata'])
   except Exception:errors.append(f'Line {n}: invalid metadata JSON')
  if row.get('recordType')=='SAMPLE':
-  for name in ['monotonicTime','receivedMonotonicTime','x','y','localX','localY']:
+  gaze=row.get('inputType')=='GAZE'
+  coordinate_names=[] if gaze and not row.get('localX') and not row.get('localY') else ['x','y','localX','localY']
+  for name in ['monotonicTime','receivedMonotonicTime',*coordinate_names]:
    try:assert math.isfinite(float(row[name]))
    except Exception:errors.append(f'Line {n}: invalid {name}')
-  try:
-   assert abs(float(row['x'])-976-float(row['localX']))<1e-6
-   assert abs(float(row['y'])-194-float(row['localY']))<1e-6
-  except Exception:errors.append(f'Line {n}: inconsistent global/local coordinates')
+  if gaze and bool(row.get('localX')) != bool(row.get('localY')):errors.append(f'Line {n}: incomplete gaze coordinates')
+  if coordinate_names:
+   try:
+    assert abs(float(row['x'])-976-float(row['localX']))<1e-6
+    assert abs(float(row['y'])-194-float(row['localY']))<1e-6
+   except Exception:errors.append(f'Line {n}: inconsistent global/local coordinates')
  if row.get('trialID'):trials[row['trialID']].append(row)
 windows=[]; intervals=[]; instructions=[]
 for trialID,items in trials.items():

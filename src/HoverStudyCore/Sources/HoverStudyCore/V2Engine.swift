@@ -71,9 +71,9 @@ public final class V2Engine {
   public var objects: [V2Object] {
     guard let c = current else { return [] }
     if c.scene != .abstract {
-      var content = V2Content.objects(scene: c.scene, state: sceneState)
+      var content = V2Content.objects(scene: c.scene, state: sceneState, contentTargets: c.task == .C3 && config.usesContentTargets)
       if c.task == .C3, let revision = config.revision {
-        let focus = V2Content.focusObject(scene: c.scene, state: sceneState, size: revision.cObjectDiameter)
+        let focus = V2Content.focusObject(scene: c.scene, state: sceneState, size: revision.cObjectDiameter, contentTargets: config.usesContentTargets)
         content.removeAll { $0.id == focus.id }
         if c.scene != .notes || sceneState.detail == nil { content.append(focus) }
       }
@@ -122,7 +122,7 @@ public final class V2Engine {
     state = .idle
     emit(
       "SESSION_START", time,
-      ["config": v2JSON(config), "schedule": v2JSON(schedule), "contentVersion": V2Content.version])
+      ["config": v2JSON(config), "schedule": v2JSON(schedule), "contentVersion": config.contentVersion])
     begin(time)
   }
   private func begin(_ t: Double) {
@@ -169,6 +169,8 @@ public final class V2Engine {
       [
         "trial": v2JSON(current!),
         "sourceBounds": current!.task == .A2 ? v2JSON(current!.dragBounds()) : "", "redoOf": attempt > 1 ? previous : "",
+        "previousTrialID": previous,
+        "transitionKind": previous.isEmpty ? "SESSION_START" : attempt > 1 ? "RETRY" : "NEXT_PLANNED",
         "attempt": String(attempt),
       ])
     if state == .targetPresented || current!.task == .B4 { present(t) }
@@ -684,7 +686,7 @@ public final class V2Engine {
     m["protocolVersion"] = config.protocolVersion
     m["progressionPolicy"] = requiresValidCompletion ? "VALID_COMPLETION" : "PLANNED_ATTEMPTS"
     m["attempt"] = String(attempt)
-    m["contentVersion"] = V2Content.version
+    m["contentVersion"] = config.contentVersion
     m["taskGroup"] = current?.task.group ?? ""
     m["taskID"] = current?.task.rawValue ?? ""
     m["posture"] = config.posture

@@ -29,10 +29,13 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install numpy pandas
-      - name: Test filtering, motion, selection, models and home positions
+      - name: Test filtering, motion, gaze, selection and home positions
         working-directory: qa
         run: >-
           python -m unittest test_kinematics test_v2_replay test_two_run_analysis
           test_hover_intent test_motion_study test_behavior_overview test_home_position
+          test_analyze_gaze_home_latest test_gaze_sequence test_home_threshold_analysis
+          test_two_day_motion_atlas test_touch_motion_analysis test_dwell_threshold_report
+          test_v23_run
       - name: Check public snapshot
         run: python qa/verify_publication.py

@@ -187,17 +187,18 @@ struct V2CaptureView: UIViewRepresentable {
           let g = context.cgContext
           UIColor.black.withAlphaComponent(0.45).setFill()
           g.fill(CGRect(x: 0, y: 660, width: 390, height: 140))
-          for o in e.objects where ["caption", "control"].contains(o.role) {
-            label(o.text, o.bounds, o.role == "control" ? 35 : 18, .white, .semibold)
+          for o in e.objects where ["caption", "control", "image", "content-object"].contains(o.role) {
+            if o.role == "image" {
+              cover(Int(o.mediaID?.replacingOccurrences(of: "cover-", with: "") ?? "") ?? 0, o.bounds)
+            } else if o.role != "content-object" {
+              label(o.text, o.bounds, o.role == "control" ? 35 : 18, .white, .semibold)
+            }
             if e.current?.condition == "HOVER" && e.current!.requested.contains(o.id) {
               g.setStrokeColor(UIColor.systemBlue.cgColor)
               g.setLineWidth(3)
               g.stroke(cg(o.bounds).insetBy(dx: 2, dy: 2))
             }
           }
-          label(
-            e.sceneState.videoPaused ? "已暂停 · 点按继续" : "静音播放 · 上下滑动切换", V2Rect(24, 632, 300, 40), 15,
-            .white)
           label("森林日常 · 第 \(e.sceneState.videoIndex+1) 集", V2Rect(24, 82, 330, 35), 18, .white)
           label("大雄兔的一天 · 无对白短片", V2Rect(24, 758, 330, 34), 15, .white)
         }
@@ -283,13 +284,13 @@ struct V2CaptureView: UIViewRepresentable {
           UIColor.white.setFill()
           UIBezierPath(roundedRect: cg(o.bounds), cornerRadius: 12).fill()
           let i = Int(o.id.replacingOccurrences(of: "note-", with: "")) ?? 0
-          cover(i, V2Rect(o.bounds.x, o.bounds.y, o.bounds.width, o.bounds.height - 91))
+          cover(Int(o.mediaID?.replacingOccurrences(of: "cover-", with: "") ?? "") ?? i, V2Rect(o.bounds.x, o.bounds.y, o.bounds.width, o.bounds.height - 91))
           label(
             o.text, V2Rect(o.bounds.x + 10, o.bounds.y + o.bounds.height - 82, 160, 49), 16, .black,
             .semibold)
           label(
             "日常记录  ♡ \(128+i*37)",
-            V2Rect(o.bounds.x + 10, o.bounds.y + o.bounds.height - 28, c.task == .C3 && e.config.revision != nil && i == 0 ? 110 : 160, 25), 12, .gray)
+            V2Rect(o.bounds.x + 10, o.bounds.y + o.bounds.height - 28, c.task == .C3 && e.config.revision != nil && !e.config.usesContentTargets && i == 0 ? 110 : 160, 25), 12, .gray)
         case "caption": label(o.text, o.bounds, 18, .white, .semibold)
         case "control": label(o.text, o.bounds, min(35, o.bounds.width - 8), dark ? .white : .darkGray)
         case "back": label(o.text, o.bounds, 19, .black)
@@ -315,9 +316,6 @@ struct V2CaptureView: UIViewRepresentable {
         "素材 © Blender Foundation · CC BY 3.0", V2Rect(20, 807, 350, 20), 11,
         dark ? .lightGray : .gray)
       if c.scene == .video {
-        label(
-          e.sceneState.videoPaused ? "已暂停 · 点按继续" : "静音播放 · 上下滑动切换", V2Rect(24, 632, 285, 40), 15,
-          .white)
         label("森林日常 · 第 \(e.sceneState.videoIndex+1) 集", V2Rect(24, 82, 290, 35), 18, .white)
         label("大雄兔的一天 · 无对白短片", V2Rect(24, 758, 320, 34), 15, .white)
       }

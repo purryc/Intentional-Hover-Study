@@ -10,16 +10,16 @@
       "bytes": 0
     },
     "data-availability.html": {
-      "sha256": "51135703fb6255cd82d03bb976bc235f84282d9de5883225483cf22f40d2b32a",
-      "bytes": 3767
+      "sha256": "b42306922c364f21d334ecd0247850eb120ed526f75d3d6209146d63ce3e7178",
+      "bytes": 4256
     },
     "index.html": {
-      "sha256": "7cbf5f5ab12a5f07061bf6d97c5952e3c85fd946300abc8e52e072a70dab0a6d",
-      "bytes": 4412
+      "sha256": "338c5401dfbea4082615f71eb050d63818e6c3202aa7ff5f530f021f2257be93",
+      "bytes": 4830
     },
     "install.html": {
-      "sha256": "c79c8eede1df9ab1ba562f43bb6d1cec6f1c0ca056fcadfa7250b201031beaf7",
-      "bytes": 3462
+      "sha256": "8138c46aaa6883727f5de3f6a4df425fdcb00e629ee505c2e87d9ee55f2b2890",
+      "bytes": 3668
     },
     "replay/Resources/cover-0.jpg": {
       "sha256": "aef79974a18f0f59086752d3430bd11d7975d139c1cf221be38a5e654399ba74",
@@ -78,8 +78,8 @@
       "bytes": 3892
     },
     "replay/v2_replay.js": {
-      "sha256": "1c6c441e68348984ff785152f964ac0bf616e22e839bcf7ca9df673bb0c02e71",
-      "bytes": 20769
+      "sha256": "4e5b14dabcd827a4f689b3e58606d64d94c47a862b0d4d70eb44fe0c9533f4fd",
+      "bytes": 21352
     },
     "replay/vendor/OrbitControls.js": {
       "sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
@@ -116,6 +116,26 @@
     "report/behavior_signatures.png": {
       "sha256": "44e62b803c6d7ca59c73be51cb99571f378a4a51e31225872107d3a37a0413f8",
       "bytes": 270838
+    },
+    "report/combined/motion-sequence.png": {
+      "sha256": "6df091921496a1d6fec8946bf15228cb5765acf3d7512f34e03001d9f6c75f93",
+      "bytes": 513531
+    },
+    "report/combined/motion-z-change.png": {
+      "sha256": "6ffa1b197f218a2c4cea57083ccab66900454743ceb9504b6d45f6d7f98ab685",
+      "bytes": 446541
+    },
+    "report/combined/reading-home-gaze.png": {
+      "sha256": "4b2ebd9c85a7954213bfb5fa8f4e66ff3239d8c18429d2ebf9f343234a589d9f",
+      "bytes": 134470
+    },
+    "report/combined/target-vs-reading.png": {
+      "sha256": "1effc5054a5f000885a3a75d55d821b9e826b5da8a1bac94806638968b1154d6",
+      "bytes": 78459
+    },
+    "report/combined.html": {
+      "sha256": "b2cc19dd08ba1b9e93d779c063157b731e4e05e1315ec50da84932272396306b",
+      "bytes": 8548
     },
     "report/home_acquisition.png": {
       "sha256": "0fa05bd49cab8c135ee0bb3fc59e704dc155b3a89ff4058dbb2bdcbf224322e0",
@@ -162,20 +182,27 @@
       "bytes": 430304
     },
     "report/study-report.html": {
-      "sha256": "f85bed4f466607195667686377d8423103faa6c729c095fc1b687ea78c8e6ec2",
-      "bytes": 54147
+      "sha256": "7b39c91a85e9749a531c178c97f1be007157b616c82ec01fd34ed50afa952c92",
+      "bytes": 54880
     },
     "report/study-report.json": {
-      "sha256": "2423a222fb0943d29bdc10e17e3ea80bde7e1d1b146c94f910259d9870bb0855",
-      "bytes": 91901
+      "sha256": "2f3a44487e45626f4fbae85c9bce5e9ad14e9d69e1a5534ec1d26ac4549f3f15",
+      "bytes": 92156
     },
     "report/study-report.md": {
-      "sha256": "c84c8017b558ce8d197fbea458a5a5829007456fcbb290ec2bfaf37eae6f90c9",
-      "bytes": 39879
+      "sha256": "59c82ac2c53184fec63e28c2963c0e58c7f09724f6838c555ba48a78021f5b5b",
+      "bytes": 40509
     },
     "report/task_comparison.png": {
       "sha256": "8a60822aa40c341500bc393955b71184d795cd03d9ce02d799a1e82b90be180c",
       "bytes": 137934
     }
-  }
+  },
+  "appSourceRevision": "HOVER_INTENT_V2_4",
+  "combinedReportSourceSha256": [
+    "1c2eff5549ea4bafb76b2d7e683e31ef5db07187161ffe2bda50f25859940b89",
+    "780e62eac61e35d1412bb59e0532ffe0561365fa7238459e4785470ac12c7f12",
+    "270a784611dca91aaa34d783ccdfcb916b249f9307a49d4d03cd66e6984518ba"
+  ],
+  "combinedReportImages": 4
 }

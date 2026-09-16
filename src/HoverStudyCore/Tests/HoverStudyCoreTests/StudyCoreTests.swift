@@ -166,6 +166,28 @@ final class StudyCoreTests: XCTestCase {
         let bad=Data("old,header\nkeep,this\n".utf8);try bad.write(to:file)
         XCTAssertThrowsError(try DailyCSVLogger(directory:root));XCTAssertEqual(try Data(contentsOf:file),bad)
     }
+    func testCSVCompleteDamagedRowStopsReopenWithoutChangingSource() throws {
+        let root=try temp();var log:DailyCSVLogger?=try DailyCSVLogger(directory:root)
+        log!.append(CSVRow(["recordType":"SAMPLE"]));try log!.flush()
+        let file=log!.files()[0];log=nil
+        let handle=try FileHandle(forWritingTo:file);try handle.seekToEnd();try handle.write(contentsOf:Data("1,2,SAMPLE\n".utf8));try handle.close()
+        let before=try Data(contentsOf:file)
+        XCTAssertThrowsError(try DailyCSVLogger(directory:root))
+        XCTAssertEqual(try Data(contentsOf:file),before)
+    }
+    func testCSVInvalidUTF8StillStopsReopenWithoutChangingSource() throws {
+        let root = try temp()
+        var log: DailyCSVLogger? = try DailyCSVLogger(directory: root)
+        let file = try XCTUnwrap(log?.files().first)
+        log = nil
+        let handle = try FileHandle(forWritingTo: file)
+        try handle.seekToEnd()
+        try handle.write(contentsOf: Data([0xFF, 0x0A]))
+        try handle.close()
+        let before = try Data(contentsOf: file)
+        XCTAssertThrowsError(try DailyCSVLogger(directory: root))
+        XCTAssertEqual(try Data(contentsOf: file), before)
+    }
     func testCSVCrossDayAndExportWhileAppending() throws {
         let root=try temp();let log=try DailyCSVLogger(directory:root)
         let tomorrow=Date().addingTimeInterval(86400)
@@ -194,9 +216,13 @@ final class StudyCoreTests: XCTestCase {
         XCTAssertEqual(try String(contentsOf:log.files()[0]).split(separator:"\n").count,3)
     }
     func testCSVHighVolumeDeliveredRecordsAllPersist() throws {
-        let root=try temp(), log=try DailyCSVLogger(directory:root,synthetic:true)
-        for i in 0..<100_000 { log.append(CSVRow(["recordType":"SAMPLE","sampleSource":"SIMULATED_HOVER","monotonicTime":String(Double(i)/120),"x":"1171","y":"609","zOffset":"0.5"])) }
-        try log.flush();XCTAssertEqual(log.snapshot().receivedRecords,100_000);XCTAssertEqual(log.snapshot().writtenRecords,100_000);XCTAssertEqual(log.snapshot().pendingRecords,0)
+        let root=try temp();var log:DailyCSVLogger?=try DailyCSVLogger(directory:root,synthetic:true)
+        for i in 0..<100_000 { log!.append(CSVRow(["recordType":"SAMPLE","sampleSource":"SIMULATED_HOVER","monotonicTime":String(Double(i)/120),"x":"1171","y":"609","zOffset":"0.5"])) }
+        try log!.flush();XCTAssertEqual(log!.snapshot().receivedRecords,100_000);XCTAssertEqual(log!.snapshot().writtenRecords,100_000);XCTAssertEqual(log!.snapshot().pendingRecords,0)
+        log=nil
+        let reopened=try DailyCSVLogger(directory:root,synthetic:true)
+        XCTAssertEqual(reopened.snapshot().writtenRecords,100_000)
+        XCTAssertEqual(reopened.snapshot().writtenSamples,100_000)
     }
     func testPersistedOutcomeReconcilesStaleCheckpointAndCSVQuotes() throws {
         let root=try temp(), log=try DailyCSVLogger(directory:root)

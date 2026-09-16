@@ -12,18 +12,20 @@ def reconstruct(source):
     with Path(source).open(newline='',encoding='utf-8-sig') as f:
         for row in csv.DictReader(f):
             m=decoded(row.get('metadata'),{})
-            if m.get('protocolVersion') not in ('HOVER_INTENT_V2_1','HOVER_INTENT_V2_2'):legacy+=1;continue
+            if m.get('protocolVersion') not in ('HOVER_INTENT_V2_1','HOVER_INTENT_V2_2','HOVER_INTENT_V2_3','HOVER_INTENT_V2_4'):legacy+=1;continue
             if not row.get('trialID'):continue
-            tid=row['trialID'];tr=trials.setdefault(tid,dict(id=tid,task=row['testID'],group=m.get('taskGroup'),scene=m.get('scene'),posture=m.get('posture'),condition=m.get('condition'),instruction=row.get('taskInstruction'),index=int(row.get('plannedIndex') or 0),total=int(row.get('plannedTotal') or 0),session=row.get('sessionID'),repeat=row.get('isRepeat')=='true',raw=[],events=[],trial={}))
+            tid=row['trialID'];tr=trials.setdefault(tid,dict(id=tid,task=row['testID'],group=m.get('taskGroup'),scene=m.get('scene'),posture=m.get('posture'),condition=m.get('condition'),instruction=row.get('taskInstruction'),index=int(row.get('plannedIndex') or 0),total=int(row.get('plannedTotal') or 0),session=row.get('sessionID'),repeat=row.get('isRepeat')=='true',raw=[],gaze=[],events=[],trial={}))
             time=float(row['monotonicTime'])
             if row['recordType']=='EVENT':
                 event=dict(t=time,type=row['eventType'],metadata=m);tr['events'].append(event)
                 if row['eventType']=='TRIAL_START':tr['trial']=decoded(m.get('trial'),{});tr['start']=time
                 if row['eventType']=='TRIAL_END':tr['success']=row.get('success')=='true';tr['error']=row.get('errorType')
+            elif row.get('inputType')=='GAZE':
+                tr['gaze'].append(dict(t=time,x=float(row['localX']) if row.get('localX') else None,y=float(row['localY']) if row.get('localY') else None,rawX=float(m['rawCameraPlaneX']) if m.get('rawCameraPlaneX') else None,rawY=float(m['rawCameraPlaneY']) if m.get('rawCameraPlaneY') else None,frameTime=float(m['arFrameTimestamp']) if m.get('arFrameTimestamp') else None,quality=m.get('gazeQuality'),validity=m.get('gazeValidity'),objectID=m.get('gazeObjectID'),calibrationID=m.get('calibrationID'),sequencePhase=m.get('sequencePhase','TASK'),sequence=int(row['sequence'])))
             else:
-                tr['raw'].append(dict(t=time,x=float(row['localX']),y=float(row['localY']),z=float(row['zOffset']) if row.get('zOffset') else None,source=row['sampleSource'],input=row['inputType'],phase=row.get('hoverState') or row.get('touchState'),sequence=int(row['sequence']),inputSequence=int(m.get('inputSequence') or 0)))
+                tr['raw'].append(dict(t=time,x=float(row['localX']),y=float(row['localY']),z=float(row['zOffset']) if row.get('zOffset') else None,source=row['sampleSource'],input=row['inputType'],phase=row.get('hoverState') or row.get('touchState'),sequencePhase=m.get('sequencePhase','TASK'),sequence=int(row['sequence']),inputSequence=int(m.get('inputSequence') or 0)))
     for tr in trials.values():
-        tr['start']=tr.get('start',min([p['t'] for p in tr['raw']]+[ev['t'] for ev in tr['events']]))
+        tr['start']=tr.get('start',min([p['t'] for p in tr['raw']]+[p['t'] for p in tr['gaze']]+[ev['t'] for ev in tr['events']]))
         begin=None;pollution=[]
         for ev in tr['events']:
             if ev['type']=='POLLUTION_START':begin=ev['t'] if begin is None else begin
@@ -41,6 +43,7 @@ def reconstruct(source):
             p['t']-=tr['start'];segment.append(p);previous=dict(p,t=p['t']+tr['start'])
         if segment:segments.append(segment)
         tr['segments']=segments;tr['exclusions']=excluded
+        for gaze in tr['gaze']:gaze['t']-=tr['start']
         for ev in tr['events']:ev['t']-=tr['start']
         tr['duration']=max([p['t'] for seg in segments for p in seg]+[ev['t'] for ev in tr['events']]+[0.001])
         tr['pollution']=[[a-tr['start'],None if math.isinf(b) else b-tr['start']] for a,b in pollution]

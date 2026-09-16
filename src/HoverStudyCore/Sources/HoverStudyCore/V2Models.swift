@@ -14,6 +14,10 @@ public enum V2Task: String, Codable, CaseIterable, Sendable {
 }
 public enum V2Scene: String, Codable, CaseIterable, Sendable { case abstract, news, notes, video }
 public struct V2RevisionConfig: Codable, Equatable, Sendable {
+  // Missing in V2.2 checkpoints: decoding preserves their original target geometry.
+  public var contentTargets: Bool? = true
+  // Absent in V2.1–V2.3 checkpoints. Gaze is opt-in and never changes task outcomes.
+  public var gazeCollection: Bool? = nil
   public var bRepetitions = 2
   public var cDiameters: [Double] = [24, 36, 48]
   public var cMarkerDiameter = 36.0
@@ -24,7 +28,12 @@ public struct V2RevisionConfig: Codable, Equatable, Sendable {
 public struct V2Config: Codable, Equatable, Sendable {
   // Optional so checkpoints written before V2.2 decode with their original protocol.
   public var revision: V2RevisionConfig? = V2RevisionConfig()
-  public var protocolVersion: String { revision == nil ? "HOVER_INTENT_V2_1" : "HOVER_INTENT_V2_2" }
+  public var usesContentTargets: Bool { revision?.contentTargets == true }
+  public var usesGazeCollection: Bool { usesContentTargets && revision?.gazeCollection == true }
+  public var protocolVersion: String {
+    revision == nil ? "HOVER_INTENT_V2_1" : usesGazeCollection ? "HOVER_INTENT_V2_4" : usesContentTargets ? "HOVER_INTENT_V2_3" : "HOVER_INTENT_V2_2"
+  }
+  public var contentVersion: String { usesContentTargets ? "reading-2026-09-v3-butterfly" : V2Content.version }
   public func requiresValidCompletion(_ task: V2Task) -> Bool {
     revision != nil && task.group != "B"
   }
@@ -206,7 +215,9 @@ public enum V2Schedule {
               case .C1: prompt = mode == "HOVER" ? "悬停\(ms)毫秒选择目标，不要触屏" : "直接点击目标，然后抬笔"
               case .C2: prompt = mode == "HOVER" ? "在蓝色标记上悬停\(ms)毫秒，不要触屏" : "\(axis)滑动，让标记进入终点窗口后抬笔"
               case .C3:
-                let item = scene == .news ? "路线缩略配图" : scene == .notes ? "首张卡片右下角收藏星标" : "视频右侧收藏星标"
+                let item = c.usesContentTargets
+                  ? (scene == .news ? "文章配图中的蝴蝶" : scene == .notes ? "首张图片中的蝴蝶" : "视频画面配图中的蝴蝶")
+                  : (scene == .news ? "路线缩略配图" : scene == .notes ? "首张卡片右下角收藏星标" : "视频右侧收藏星标")
                 prompt = mode == "HOVER" ? "在\(c.revision == nil ? "蓝框内容" : item)上悬停\(ms)毫秒，不要触屏" : "自然阅读或观看当前内容"
               }
               var trial = V2Trial(
@@ -219,7 +230,7 @@ public enum V2Schedule {
                   scene == .news ? "news-p0" : scene == .notes ? "note-0" : "video-0"
                 ]
                 if task == .C3, let revision = c.revision {
-                  trial.requested = [V2Content.focusObject(scene: scene, state: V2SceneState(), size: revision.cObjectDiameter).id]
+                  trial.requested = [V2Content.focusObject(scene: scene, state: V2SceneState(), size: revision.cObjectDiameter, contentTargets: c.usesContentTargets).id]
                   trial.diameter = revision.cObjectDiameter
                 }
               }
