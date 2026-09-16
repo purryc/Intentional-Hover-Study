@@ -14,7 +14,7 @@ qa/*.json
 qa/*.csv
 qa/*.log
 qa/*.png
-qa/*attachments/
+qa/*attachments*/
 qa/verification.md
 qa/v2-verification.md
 qa/v2-2-verification.md
