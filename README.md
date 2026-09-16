@@ -2,7 +2,7 @@
 
 手机操作仿真中的悬停意图研究：原生 iPad 采集应用、14 类任务、真实阅读场景与行动轨迹分析。
 
-**[综合研究报告](https://purryc.github.io/Intentional-Hover-Study/report/combined.html)** · **[安装应用](https://purryc.github.io/Intentional-Hover-Study/install.html)** · **[Three.js 回放工具](https://purryc.github.io/Intentional-Hover-Study/replay/replay-v2.html)**
+**[综合研究报告](https://purryc.github.io/Intentional-Hover-Study/report/combined.html)** · **[产品需求文档](docs/PRD.md)** · **[安装应用](https://purryc.github.io/Intentional-Hover-Study/install.html)** · **[Three.js 回放工具](https://purryc.github.io/Intentional-Hover-Study/replay/replay-v2.html)**
 
 综合页按协议版本串联 V2.1/V2.3 的 Touch、阅读 Home、主动 Hover 动作证据，与后续 V2.4 阅读视线探索。新会话校准误差 P90 为 211.9 pt，成功 A1 点击也常未被视线估计命中，因此暂不能用眼手同目标判定意图。原 [12 章、17 图报告](https://purryc.github.io/Intentional-Hover-Study/report/study-report.html)仍保留，来自一位参与者的 V2.1 右手两种姿势；C 留组检验是回顾性分析。当前采集应用源码为 V2.4；新版逐类 Pencil 试做和 15 分钟硬件专项另行验收。
 
