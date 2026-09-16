@@ -1,0 +1,24 @@
+.tmp/
+backups/
+data/
+qa/device-captures/
+.DS_Store
+**/.build/
+**/xcuserdata/
+**/*.xcuserstate
+**/__pycache__/
+**/*.pyc
+# Local research evidence is published only through the curated site snapshot.
+analysis/
+qa/*.json
+qa/*.csv
+qa/*.log
+qa/*.png
+qa/*attachments/
+qa/verification.md
+qa/v2-verification.md
+qa/v2-2-verification.md
+*.ipa
+*.mobileprovision
+*.p12
+*.xcarchive/

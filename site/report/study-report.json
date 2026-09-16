@@ -1,0 +1,2756 @@
+{
+  "sha256": "1c2eff5549ea4bafb76b2d7e683e31ef5db07187161ffe2bda50f25859940b89",
+  "bytes": 328198639,
+  "participants": 1,
+  "hand": "RIGHT",
+  "runs": [
+    "THUMB",
+    "CRADLE_INDEX"
+  ],
+  "measuredProtocol": "HOVER_INTENT_V2_1",
+  "appRevision": "HOVER_INTENT_V2_2",
+  "b1OverrideScope": "6 WRONG_MENU_ITEM records after MENU_OPEN with actual B; raw retained",
+  "sectionCount": 12,
+  "assets": [
+    "ab_discovery_c_check.png",
+    "abstract_paths.png",
+    "behavior_feature_atlas.png",
+    "behavior_phase_curves.png",
+    "behavior_signatures.png",
+    "home_acquisition.png",
+    "home_filter_tradeoff.png",
+    "home_position_map.png",
+    "intent_features.png",
+    "lasso_paths.png",
+    "matched_drag_motion.png",
+    "multiselect_motion.png",
+    "multiselect_paths.png",
+    "pointing_motion.png",
+    "reading_paths.png",
+    "selection_alignment.png",
+    "task_comparison.png"
+  ],
+  "appVerification": {
+    "status": "PASS_AUTOMATED_AND_INSTALLED",
+    "coreTests": "PASS · 50/50",
+    "simulatorUITests": "PASS · 8/8",
+    "analysisRegression": "PASS · 13/13",
+    "unsignedIOSBuild": "PASS",
+    "signedIOSBuild": "PASS",
+    "originalCSVAndPandas": "PASS · 266246行/56列",
+    "simulatedCSVAndMetadata": "PASS · 独立SIMULATED文件，4条重试关联",
+    "deviceInstall": "PASS · iPad14,5 · 2.2/build3",
+    "foregroundLaunch": "PASS · devicectl确认启动",
+    "originalDataPreservation": "PASS · 安装前后SHA256一致",
+    "physicalPencilValidation": "NOT_RUN · 新小目标/重试需参与者试做",
+    "new15MinuteHardwareRun": "NOT_RUN",
+    "newAirDropAcceptance": "NOT_RUN"
+  },
+  "edition": "PUBLIC_REPORT_AGGREGATES_NO_RAW_SAMPLES",
+  "source": "HoverIntent_2026-09-15 2.csv",
+  "dataAvailability": "../data-availability.html",
+  "results": {
+    "quality.json": {
+      "fields": 56,
+      "rows": {
+        "EVENT": 100772,
+        "SAMPLE": 165474
+      },
+      "comparison": {
+        "mappingSource": "user-confirmed both RIGHT; first thumb, second index; B1 all B intended",
+        "trials": 271,
+        "allTaskTypes": [
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A6",
+          "A7",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "C1",
+          "C2",
+          "C3"
+        ],
+        "rawCSVUnchanged": true,
+        "tinyEdges": 2,
+        "motionRows": 146265
+      },
+      "replay": {
+        "trials": 271,
+        "points": 150040,
+        "scenePreviewMaxHz": 20,
+        "omittedScenePreviewStates": 72888,
+        "htmlBytes": 4091,
+        "dataBytes": 90271168
+      }
+    },
+    "behavior-overview.json": {
+      "windows": [
+        {
+          "task": "A5",
+          "n": 26,
+          "speed": 42.87983876215361,
+          "rms": 5.968210831826804
+        },
+        {
+          "task": "A6",
+          "n": 24,
+          "speed": 43.823998293659926,
+          "rms": 7.401139069698855
+        },
+        {
+          "task": "A7",
+          "n": 68,
+          "speed": 157.71705132536738,
+          "rms": 23.748662045172296
+        },
+        {
+          "task": "B1",
+          "n": 12,
+          "speed": 46.065832992565205,
+          "rms": 5.664220196576671
+        },
+        {
+          "task": "B2",
+          "n": 12,
+          "speed": 40.954028099398116,
+          "rms": 5.903812955326918
+        },
+        {
+          "task": "B3",
+          "n": 36,
+          "speed": 35.1734129788908,
+          "rms": 5.237613310170914
+        },
+        {
+          "task": "C2",
+          "n": 4,
+          "speed": 30.5182954842329,
+          "rms": 2.1892162224117993
+        },
+        {
+          "task": "C3",
+          "n": 96,
+          "speed": 47.01682938871359,
+          "rms": 7.69157863492916
+        }
+      ],
+      "motion": [
+        {
+          "task": "A1",
+          "attempts": 36,
+          "success": 33,
+          "contactTrials": 33,
+          "hoverSpeed": 88.38443480152553,
+          "touchSpeed": 66.2269831050678,
+          "hoverAccelP95": 16298.465420879631,
+          "touchAccelP95": 13085.803495858081
+        },
+        {
+          "task": "A2",
+          "attempts": 36,
+          "success": 32,
+          "contactTrials": 32,
+          "hoverSpeed": 61.45313534097575,
+          "touchSpeed": 182.02388903617273,
+          "hoverAccelP95": 9207.552918582576,
+          "touchAccelP95": 17095.41240529876
+        },
+        {
+          "task": "A3",
+          "attempts": 12,
+          "success": 12,
+          "contactTrials": 12,
+          "hoverSpeed": 66.36439541294308,
+          "touchSpeed": 383.1975255116671,
+          "hoverAccelP95": 7510.967265967896,
+          "touchAccelP95": 21495.81315243209
+        },
+        {
+          "task": "A4",
+          "attempts": 12,
+          "success": 12,
+          "contactTrials": 12,
+          "hoverSpeed": 38.76764481083652,
+          "touchSpeed": 229.8887415102706,
+          "hoverAccelP95": 6369.138804564322,
+          "touchAccelP95": 17425.07161071308
+        },
+        {
+          "task": "A5",
+          "attempts": 2,
+          "success": 2,
+          "contactTrials": 2,
+          "hoverSpeed": 51.21018795234585,
+          "touchSpeed": 83.2639572739134,
+          "hoverAccelP95": 8806.058560634905,
+          "touchAccelP95": 7601.360913382505
+        },
+        {
+          "task": "A6",
+          "attempts": 2,
+          "success": 2,
+          "contactTrials": 2,
+          "hoverSpeed": 56.26289680193079,
+          "touchSpeed": 63.19690519424115,
+          "hoverAccelP95": 16234.382726937789,
+          "touchAccelP95": 11190.822865895341
+        },
+        {
+          "task": "A7",
+          "attempts": 3,
+          "success": 2,
+          "contactTrials": 2,
+          "hoverSpeed": 108.44550828576357,
+          "touchSpeed": 136.78087056922783,
+          "hoverAccelP95": 14638.127668830006,
+          "touchAccelP95": 55971.00773740671
+        },
+        {
+          "task": "B1",
+          "attempts": 12,
+          "success": 12,
+          "contactTrials": 12,
+          "hoverSpeed": 41.917652969559896,
+          "touchSpeed": 33.13490749238925,
+          "hoverAccelP95": 9172.478397094124,
+          "touchAccelP95": 6099.213644559237
+        },
+        {
+          "task": "B2",
+          "attempts": 12,
+          "success": 12,
+          "contactTrials": 0,
+          "hoverSpeed": 57.72973951324775,
+          "touchSpeed": null,
+          "hoverAccelP95": 10661.741894779841,
+          "touchAccelP95": null
+        },
+        {
+          "task": "B3",
+          "attempts": 12,
+          "success": 12,
+          "contactTrials": 0,
+          "hoverSpeed": 44.53815757643389,
+          "touchSpeed": null,
+          "hoverAccelP95": 5229.393547018959,
+          "touchAccelP95": null
+        },
+        {
+          "task": "B4",
+          "attempts": 12,
+          "success": 7,
+          "contactTrials": 0,
+          "hoverSpeed": 288.30666869324943,
+          "touchSpeed": null,
+          "hoverAccelP95": 13306.478526839877,
+          "touchAccelP95": null
+        },
+        {
+          "task": "C1",
+          "attempts": 24,
+          "success": 12,
+          "contactTrials": 12,
+          "hoverSpeed": 132.8179434073881,
+          "touchSpeed": 48.26002808016201,
+          "hoverAccelP95": 14089.578347002944,
+          "touchAccelP95": 9288.351174343448
+        },
+        {
+          "task": "C2",
+          "attempts": 24,
+          "success": 8,
+          "contactTrials": 4,
+          "hoverSpeed": 61.20181544142006,
+          "touchSpeed": 239.1397510541284,
+          "hoverAccelP95": 6852.712134631654,
+          "touchAccelP95": 19248.281642798123
+        },
+        {
+          "task": "C3",
+          "attempts": 72,
+          "success": 63,
+          "contactTrials": 36,
+          "hoverSpeed": 75.02759834950066,
+          "touchSpeed": 191.47640539437364,
+          "hoverAccelP95": 12794.400080321777,
+          "touchAccelP95": 29764.68379167268
+        }
+      ],
+      "targetHover": [
+        {
+          "task": "A1",
+          "n": 33,
+          "median_ms": 233.4502916673955,
+          "zeroHits": 0,
+          "over500": 1
+        },
+        {
+          "task": "A2",
+          "n": 32,
+          "median_ms": 0.0,
+          "zeroHits": 32,
+          "over500": 0
+        },
+        {
+          "task": "B1",
+          "n": 12,
+          "median_ms": 500.7371250012511,
+          "zeroHits": 0,
+          "over500": 12
+        },
+        {
+          "task": "B2",
+          "n": 12,
+          "median_ms": 500.29295833519427,
+          "zeroHits": 0,
+          "over500": 12
+        },
+        {
+          "task": "C1",
+          "n": 12,
+          "median_ms": 216.3511666640261,
+          "zeroHits": 0,
+          "over500": 0
+        }
+      ],
+      "matchedSingleTargets": [
+        {
+          "task": "A1",
+          "n": 10,
+          "preTargetHoverMedian_ms": 208.13743749931746,
+          "noTargetHover": 0
+        },
+        {
+          "task": "B1",
+          "n": 10,
+          "preTargetHoverMedian_ms": 500.7371250012511,
+          "noTargetHover": 0
+        },
+        {
+          "task": "B2",
+          "n": 10,
+          "preTargetHoverMedian_ms": 500.3219583322789,
+          "noTargetHover": 0
+        }
+      ],
+      "loopScan": [
+        {
+          "task": "A1",
+          "trials": 36,
+          "withLoop": 0,
+          "hoverObserved_s": 25.388308875000803
+        },
+        {
+          "task": "A2",
+          "trials": 36,
+          "withLoop": 0,
+          "hoverObserved_s": 17.85984495832963
+        },
+        {
+          "task": "A3",
+          "trials": 12,
+          "withLoop": 0,
+          "hoverObserved_s": 5.8963997083337745
+        },
+        {
+          "task": "A4",
+          "trials": 12,
+          "withLoop": 0,
+          "hoverObserved_s": 4.674087833333033
+        },
+        {
+          "task": "A5",
+          "trials": 2,
+          "withLoop": 0,
+          "hoverObserved_s": 72.10221825000917
+        },
+        {
+          "task": "A6",
+          "trials": 2,
+          "withLoop": 0,
+          "hoverObserved_s": 110.07939837502636
+        },
+        {
+          "task": "A7",
+          "trials": 3,
+          "withLoop": 0,
+          "hoverObserved_s": 121.05487741670368
+        },
+        {
+          "task": "B1",
+          "trials": 12,
+          "withLoop": 1,
+          "hoverObserved_s": 32.74277170833011
+        },
+        {
+          "task": "B2",
+          "trials": 12,
+          "withLoop": 0,
+          "hoverObserved_s": 14.266214375002164
+        },
+        {
+          "task": "B3",
+          "trials": 12,
+          "withLoop": 0,
+          "hoverObserved_s": 37.443139958326356
+        },
+        {
+          "task": "B4",
+          "trials": 12,
+          "withLoop": 8,
+          "hoverObserved_s": 44.99090912500469
+        },
+        {
+          "task": "C1",
+          "trials": 24,
+          "withLoop": 0,
+          "hoverObserved_s": 20.372926999996707
+        },
+        {
+          "task": "C2",
+          "trials": 24,
+          "withLoop": 0,
+          "hoverObserved_s": 9.134259041678888
+        },
+        {
+          "task": "C3",
+          "trials": 72,
+          "withLoop": 1,
+          "hoverObserved_s": 247.5551410834123
+        }
+      ],
+      "model": {
+        "features": [
+          "speed_median_pt_s",
+          "rms_pt"
+        ],
+        "mean": [
+          3.8534968847485476,
+          2.071683585221767
+        ],
+        "scale": [
+          1.136955220037462,
+          0.7928753829462565
+        ],
+        "beta": [
+          -0.0033031173217076865,
+          0.13026307609722146,
+          -0.5435249646161783
+        ],
+        "regularization": 0.1,
+        "threshold": 0.5,
+        "trainRows": 178,
+        "trainPositive": 60,
+        "trainNegative": 118,
+        "trainTrials": {
+          "0": 6,
+          "1": 36
+        },
+        "trainTaskCounts": {
+          "A5": 26,
+          "A6": 24,
+          "A7": 68,
+          "B1": 12,
+          "B2": 12,
+          "B3": 36
+        },
+        "cUsedForFit": false
+      },
+      "c3": {
+        "active": 27,
+        "natural": 69,
+        "true_active": 23,
+        "missed_active": 4,
+        "natural_called_active": 20,
+        "true_natural": 49,
+        "active_recall": 0.8518518518518519,
+        "natural_specificity": 0.7101449275362319,
+        "balanced_accuracy": 0.7809983896940419,
+        "auc": 0.8174986580783682
+      },
+      "c3Scenes": {
+        "news": {
+          "active": 8,
+          "natural": 12,
+          "true_active": 7,
+          "missed_active": 1,
+          "natural_called_active": 5,
+          "true_natural": 7,
+          "active_recall": 0.875,
+          "natural_specificity": 0.5833333333333334,
+          "balanced_accuracy": 0.7291666666666667,
+          "auc": 0.6875
+        },
+        "notes": {
+          "active": 9,
+          "natural": 5,
+          "true_active": 8,
+          "missed_active": 1,
+          "natural_called_active": 2,
+          "true_natural": 3,
+          "active_recall": 0.8888888888888888,
+          "natural_specificity": 0.6,
+          "balanced_accuracy": 0.7444444444444445,
+          "auc": 0.7777777777777778
+        },
+        "video": {
+          "active": 10,
+          "natural": 52,
+          "true_active": 8,
+          "missed_active": 2,
+          "natural_called_active": 13,
+          "true_natural": 39,
+          "active_recall": 0.8,
+          "natural_specificity": 0.75,
+          "balanced_accuracy": 0.775,
+          "auc": 0.8653846153846154
+        }
+      },
+      "c2PositiveWindowCheck": {
+        "active": 4,
+        "natural": 0,
+        "true_active": 4,
+        "missed_active": 0,
+        "natural_called_active": 0,
+        "true_natural": 0,
+        "active_recall": 1.0,
+        "natural_specificity": null,
+        "balanced_accuracy": null,
+        "auc": null
+      },
+      "validationStatus": "RETROSPECTIVE_SAME_PARTICIPANT_C_PREVIOUSLY_EXPLORED"
+    },
+    "motion-study.json": {
+      "summaries": [
+        {
+          "run": "拇指",
+          "trials": 6,
+          "selections": 18,
+          "continuousComparisons": 1,
+          "approachMedian": 268.79020284615274,
+          "dwellMedian": 31.37574811779491,
+          "slowdownRatioMedian": 0.11672950794175123,
+          "slowerCount": 1,
+          "actualDwellMedian_ms": 513.580250000814,
+          "selectionOrders": [
+            "t0",
+            "t1",
+            "t2",
+            "t0",
+            "t1",
+            "t2",
+            "t0",
+            "t1",
+            "t2",
+            "t0",
+            "t1",
+            "t2",
+            "t0",
+            "t1",
+            "t2",
+            "t0",
+            "t1",
+            "t2"
+          ]
+        },
+        {
+          "run": "食指",
+          "trials": 6,
+          "selections": 18,
+          "continuousComparisons": 11,
+          "approachMedian": 218.06230871657007,
+          "dwellMedian": 58.050939693383974,
+          "slowdownRatioMedian": 0.2765058420637912,
+          "slowerCount": 11,
+          "actualDwellMedian_ms": 500.3345833338244,
+          "selectionOrders": [
+            "t0",
+            "t1",
+            "t2",
+            "t0",
+            "t1",
+            "t2",
+            "t0",
+            "t1",
+            "t2",
+            "t0",
+            "t1",
+            "t2",
+            "t0",
+            "t1",
+            "t2",
+            "t0",
+            "t1",
+            "t2"
+          ]
+        }
+      ],
+      "signedMotionRows": 25641,
+      "method": "signed speed derivative in continuous XY; raw and 80ms display trend; paired approach/dwell windows"
+    },
+    "home-position.json": {
+      "method": {
+        "window_s": 0.5,
+        "minCoverage_ms": 450,
+        "minPoints": 12,
+        "rmsMaximum_pt": 15,
+        "speedMaximum_pt_s": 100,
+        "radiusPrimary_pt": 50,
+        "radiusSensitivity_pt": [
+          30,
+          50,
+          80
+        ],
+        "insideFractionMinimum": 0.8,
+        "train_s": 60,
+        "check_s": 60,
+        "minClusterWindows": 6,
+        "maxCheckCenterShift_pt": 50
+      },
+      "sceneModels": [
+        {
+          "run": "拇指",
+          "scene": "news",
+          "totalCompleteWindows": 57,
+          "lowMotionWindows": 48,
+          "rawHoverObserved_s": 34.180577625000296,
+          "train": {
+            "cx": 305.34643834202274,
+            "cy": 470.59642794636375,
+            "radius": 50,
+            "eligibleWindows": 31,
+            "clusterWindows": 17,
+            "clusterWeightShare": 0.548484820227759,
+            "clusterObserved_s": 8.256951708332053,
+            "available": true,
+            "sceneBalanced": false,
+            "rawZMedian": 0.6117788461538461
+          },
+          "check": {
+            "cx": 293.6826951033499,
+            "cy": 464.4506111842714,
+            "radius": 50,
+            "eligibleWindows": 17,
+            "clusterWindows": 12,
+            "clusterWeightShare": 0.7065213879412128,
+            "clusterObserved_s": 5.857729291663418,
+            "available": true,
+            "sceneBalanced": false,
+            "rawZMedian": 0.5793269230769231
+          },
+          "centerShift_pt": 13.183852623982943,
+          "replicated": true,
+          "status": "REPLICATED_HOTSPOT",
+          "acquisition": {
+            "firstCandidate_s": 45,
+            "onlineTentative_s": null,
+            "retrospectiveStable_s": 60,
+            "checkpoints": [
+              {
+                "elapsed_s": 2,
+                "totalCompleteWindows": 3,
+                "model": {
+                  "cx": 215.20717689877293,
+                  "cy": 492.8721749549593,
+                  "radius": 50,
+                  "eligibleWindows": 2,
+                  "clusterWindows": 2,
+                  "clusterWeightShare": 1.0,
+                  "clusterObserved_s": 0.954407708337385,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.8673377403846154
+                },
+                "shiftFromPrevious_pt": null,
+                "distanceTo60s_pt": 92.8509308425365
+              },
+              {
+                "elapsed_s": 5,
+                "totalCompleteWindows": 6,
+                "model": {
+                  "cx": 254.2921555230182,
+                  "cy": 556.3966923222958,
+                  "radius": 50,
+                  "eligibleWindows": 5,
+                  "clusterWindows": 3,
+                  "clusterWeightShare": 0.6039501373619324,
+                  "clusterObserved_s": 1.4554093333354103,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.8626802884615384
+                },
+                "shiftFromPrevious_pt": 74.58552045008973,
+                "distanceTo60s_pt": 99.84099939975934
+              },
+              {
+                "elapsed_s": 10,
+                "totalCompleteWindows": 7,
+                "model": {
+                  "cx": 254.2921555230182,
+                  "cy": 556.3966923222958,
+                  "radius": 50,
+                  "eligibleWindows": 5,
+                  "clusterWindows": 3,
+                  "clusterWeightShare": 0.6039501373619324,
+                  "clusterObserved_s": 1.4554093333354103,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.8626802884615384
+                },
+                "shiftFromPrevious_pt": 0.0,
+                "distanceTo60s_pt": 99.84099939975934
+              },
+              {
+                "elapsed_s": 15,
+                "totalCompleteWindows": 7,
+                "model": {
+                  "cx": 254.2921555230182,
+                  "cy": 556.3966923222958,
+                  "radius": 50,
+                  "eligibleWindows": 5,
+                  "clusterWindows": 3,
+                  "clusterWeightShare": 0.6039501373619324,
+                  "clusterObserved_s": 1.4554093333354103,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.8626802884615384
+                },
+                "shiftFromPrevious_pt": 0.0,
+                "distanceTo60s_pt": 99.84099939975934
+              },
+              {
+                "elapsed_s": 20,
+                "totalCompleteWindows": 13,
+                "model": {
+                  "cx": 265.17154305295395,
+                  "cy": 554.748426547604,
+                  "radius": 50,
+                  "eligibleWindows": 9,
+                  "clusterWindows": 5,
+                  "clusterWeightShare": 0.5541404247732851,
+                  "clusterObserved_s": 2.423181291669607,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.8584735576923077
+                },
+                "shiftFromPrevious_pt": 11.00353820780124,
+                "distanceTo60s_pt": 93.25009962499122
+              },
+              {
+                "elapsed_s": 30,
+                "totalCompleteWindows": 19,
+                "model": {
+                  "cx": 265.17154305295395,
+                  "cy": 554.748426547604,
+                  "radius": 50,
+                  "eligibleWindows": 12,
+                  "clusterWindows": 5,
+                  "clusterWeightShare": 0.41507338063519966,
+                  "clusterObserved_s": 2.423181291669607,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.8584735576923077
+                },
+                "shiftFromPrevious_pt": 0.0,
+                "distanceTo60s_pt": 93.25009962499122
+              },
+              {
+                "elapsed_s": 45,
+                "totalCompleteWindows": 30,
+                "model": {
+                  "cx": 300.5368544926521,
+                  "cy": 449.1041628203682,
+                  "radius": 50,
+                  "eligibleWindows": 23,
+                  "clusterWindows": 11,
+                  "clusterWeightShare": 0.4775154147178913,
+                  "clusterObserved_s": 5.328654958335392,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.6421274038461539
+                },
+                "shiftFromPrevious_pt": 111.40653352338275,
+                "distanceTo60s_pt": 22.023840651671375
+              },
+              {
+                "elapsed_s": 60,
+                "totalCompleteWindows": 38,
+                "model": {
+                  "cx": 305.34643834202274,
+                  "cy": 470.59642794636375,
+                  "radius": 50,
+                  "eligibleWindows": 31,
+                  "clusterWindows": 17,
+                  "clusterWeightShare": 0.548484820227759,
+                  "clusterObserved_s": 8.256951708332053,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.6117788461538461
+                },
+                "shiftFromPrevious_pt": 22.023840651671375,
+                "distanceTo60s_pt": 0.0
+              }
+            ]
+          },
+          "sensitivity": {
+            "30": {
+              "train": {
+                "cx": 305.1026884578206,
+                "cy": 460.4673779910955,
+                "radius": 30,
+                "eligibleWindows": 31,
+                "clusterWindows": 15,
+                "clusterWeightShare": 0.4824222841952026,
+                "clusterObserved_s": 7.262438916666724,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.6117788461538461
+              },
+              "check": {
+                "cx": 296.5073490092651,
+                "cy": 467.43831579370357,
+                "radius": 30,
+                "eligibleWindows": 17,
+                "clusterWindows": 11,
+                "clusterWeightShare": 0.6476068916893957,
+                "clusterObserved_s": 5.369272499996441,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5621995192307693
+              },
+              "centerShift_pt": 11.066789691853936,
+              "replicated": true,
+              "status": "REPLICATED_HOTSPOT"
+            },
+            "50": {
+              "train": {
+                "cx": 305.34643834202274,
+                "cy": 470.59642794636375,
+                "radius": 50,
+                "eligibleWindows": 31,
+                "clusterWindows": 17,
+                "clusterWeightShare": 0.548484820227759,
+                "clusterObserved_s": 8.256951708332053,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.6117788461538461
+              },
+              "check": {
+                "cx": 293.6826951033499,
+                "cy": 464.4506111842714,
+                "radius": 50,
+                "eligibleWindows": 17,
+                "clusterWindows": 12,
+                "clusterWeightShare": 0.7065213879412128,
+                "clusterObserved_s": 5.857729291663418,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5793269230769231
+              },
+              "centerShift_pt": 13.183852623982943,
+              "replicated": true,
+              "status": "REPLICATED_HOTSPOT"
+            },
+            "80": {
+              "train": {
+                "cx": 301.09598326317564,
+                "cy": 475.12907122198817,
+                "radius": 80,
+                "eligibleWindows": 31,
+                "clusterWindows": 23,
+                "clusterWeightShare": 0.7415785375730185,
+                "clusterObserved_s": 11.163806083335658,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.6117788461538461
+              },
+              "check": {
+                "cx": 293.25693885502045,
+                "cy": 463.74119966048903,
+                "radius": 80,
+                "eligibleWindows": 17,
+                "clusterWindows": 16,
+                "clusterWeightShare": 0.9398867610856357,
+                "clusterObserved_s": 7.792548541667202,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5793269230769231
+              },
+              "centerShift_pt": 13.825130593749558,
+              "replicated": true,
+              "status": "REPLICATED_HOTSPOT"
+            }
+          }
+        },
+        {
+          "run": "拇指",
+          "scene": "notes",
+          "totalCompleteWindows": 57,
+          "lowMotionWindows": 35,
+          "rawHoverObserved_s": 45.84377800002403,
+          "train": {
+            "cx": 280.79324261105126,
+            "cy": 503.2866884419733,
+            "radius": 50,
+            "eligibleWindows": 18,
+            "clusterWindows": 13,
+            "clusterWeightShare": 0.7201758232503329,
+            "clusterObserved_s": 6.3225437916735245,
+            "available": true,
+            "sceneBalanced": false,
+            "rawZMedian": 0.5728665865384616
+          },
+          "check": {
+            "cx": 313.0283528632083,
+            "cy": 341.3125936016732,
+            "radius": 50,
+            "eligibleWindows": 17,
+            "clusterWindows": 11,
+            "clusterWeightShare": 0.6457238426434617,
+            "clusterObserved_s": 5.3446505416723085,
+            "available": true,
+            "sceneBalanced": false,
+            "rawZMedian": 0.4559795673076923
+          },
+          "centerShift_pt": 165.1505668543201,
+          "replicated": false,
+          "status": "TRAIN_ONLY_UNCONFIRMED",
+          "acquisition": {
+            "firstCandidate_s": 30,
+            "onlineTentative_s": 45,
+            "retrospectiveStable_s": null,
+            "checkpoints": [
+              {
+                "elapsed_s": 2,
+                "totalCompleteWindows": 1,
+                "model": {
+                  "cx": 295.58368577476597,
+                  "cy": 537.8163853559919,
+                  "radius": 50,
+                  "eligibleWindows": 1,
+                  "clusterWindows": 1,
+                  "clusterWeightShare": 1.0,
+                  "clusterObserved_s": 0.49937375000081374,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.29356971153846156
+                },
+                "shiftFromPrevious_pt": null,
+                "distanceTo60s_pt": 37.564041022673
+              },
+              {
+                "elapsed_s": 5,
+                "totalCompleteWindows": 2,
+                "model": {
+                  "cx": 295.58368577476597,
+                  "cy": 537.8163853559919,
+                  "radius": 50,
+                  "eligibleWindows": 2,
+                  "clusterWindows": 1,
+                  "clusterWeightShare": 0.517023600061078,
+                  "clusterObserved_s": 0.49937375000081374,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.29356971153846156
+                },
+                "shiftFromPrevious_pt": 0.0,
+                "distanceTo60s_pt": 37.564041022673
+              },
+              {
+                "elapsed_s": 10,
+                "totalCompleteWindows": 3,
+                "model": {
+                  "cx": 295.58368577476597,
+                  "cy": 537.8163853559919,
+                  "radius": 50,
+                  "eligibleWindows": 2,
+                  "clusterWindows": 1,
+                  "clusterWeightShare": 0.517023600061078,
+                  "clusterObserved_s": 0.49937375000081374,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.29356971153846156
+                },
+                "shiftFromPrevious_pt": 0.0,
+                "distanceTo60s_pt": 37.564041022673
+              },
+              {
+                "elapsed_s": 15,
+                "totalCompleteWindows": 5,
+                "model": {
+                  "cx": 276.8277287463438,
+                  "cy": 437.733307147938,
+                  "radius": 50,
+                  "eligibleWindows": 3,
+                  "clusterWindows": 2,
+                  "clusterWeightShare": 0.6592856311937245,
+                  "clusterObserved_s": 0.9662930833364953,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5844350961538463
+                },
+                "shiftFromPrevious_pt": 101.82538223670684,
+                "distanceTo60s_pt": 65.67321447357642
+              },
+              {
+                "elapsed_s": 20,
+                "totalCompleteWindows": 5,
+                "model": {
+                  "cx": 276.8277287463438,
+                  "cy": 437.733307147938,
+                  "radius": 50,
+                  "eligibleWindows": 3,
+                  "clusterWindows": 2,
+                  "clusterWeightShare": 0.6592856311937245,
+                  "clusterObserved_s": 0.9662930833364953,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5844350961538463
+                },
+                "shiftFromPrevious_pt": 0.0,
+                "distanceTo60s_pt": 65.67321447357642
+              },
+              {
+                "elapsed_s": 30,
+                "totalCompleteWindows": 9,
+                "model": {
+                  "cx": 281.556889430142,
+                  "cy": 503.6423941322848,
+                  "radius": 50,
+                  "eligibleWindows": 7,
+                  "clusterWindows": 6,
+                  "clusterWeightShare": 0.8547539910589724,
+                  "clusterObserved_s": 2.941283416676015,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5980318509615385
+                },
+                "shiftFromPrevious_pt": 66.07853439569749,
+                "distanceTo60s_pt": 0.8424268528646219
+              },
+              {
+                "elapsed_s": 45,
+                "totalCompleteWindows": 22,
+                "model": {
+                  "cx": 280.79324261105126,
+                  "cy": 503.2866884419733,
+                  "radius": 50,
+                  "eligibleWindows": 15,
+                  "clusterWindows": 13,
+                  "clusterWeightShare": 0.8653347936829066,
+                  "clusterObserved_s": 6.3225437916735245,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5728665865384616
+                },
+                "shiftFromPrevious_pt": 0.8424268528646219,
+                "distanceTo60s_pt": 0.0
+              },
+              {
+                "elapsed_s": 60,
+                "totalCompleteWindows": 27,
+                "model": {
+                  "cx": 280.79324261105126,
+                  "cy": 503.2866884419733,
+                  "radius": 50,
+                  "eligibleWindows": 18,
+                  "clusterWindows": 13,
+                  "clusterWeightShare": 0.7201758232503329,
+                  "clusterObserved_s": 6.3225437916735245,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5728665865384616
+                },
+                "shiftFromPrevious_pt": 0.0,
+                "distanceTo60s_pt": 0.0
+              }
+            ]
+          },
+          "sensitivity": {
+            "30": {
+              "train": {
+                "cx": 282.06612362621286,
+                "cy": 514.8891599087423,
+                "radius": 30,
+                "eligibleWindows": 18,
+                "clusterWindows": 10,
+                "clusterWeightShare": 0.5557405178444038,
+                "clusterObserved_s": 4.878938791669498,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5709134615384616
+              },
+              "check": {
+                "cx": 313.0283528632083,
+                "cy": 341.3125936016732,
+                "radius": 30,
+                "eligibleWindows": 17,
+                "clusterWindows": 10,
+                "clusterWeightShare": 0.5869985272626659,
+                "clusterObserved_s": 4.858581625005172,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5101412259615384
+              },
+              "centerShift_pt": 176.31643148123376,
+              "replicated": false,
+              "status": "TRAIN_ONLY_UNCONFIRMED"
+            },
+            "50": {
+              "train": {
+                "cx": 280.79324261105126,
+                "cy": 503.2866884419733,
+                "radius": 50,
+                "eligibleWindows": 18,
+                "clusterWindows": 13,
+                "clusterWeightShare": 0.7201758232503329,
+                "clusterObserved_s": 6.3225437916735245,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5728665865384616
+              },
+              "check": {
+                "cx": 313.0283528632083,
+                "cy": 341.3125936016732,
+                "radius": 50,
+                "eligibleWindows": 17,
+                "clusterWindows": 11,
+                "clusterWeightShare": 0.6457238426434617,
+                "clusterObserved_s": 5.3446505416723085,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.4559795673076923
+              },
+              "centerShift_pt": 165.1505668543201,
+              "replicated": false,
+              "status": "TRAIN_ONLY_UNCONFIRMED"
+            },
+            "80": {
+              "train": {
+                "cx": 280.9808978247997,
+                "cy": 496.9650644227657,
+                "radius": 80,
+                "eligibleWindows": 18,
+                "clusterWindows": 13,
+                "clusterWeightShare": 0.7201758232503329,
+                "clusterObserved_s": 6.3225437916735245,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5728665865384616
+              },
+              "check": {
+                "cx": 313.0283528632083,
+                "cy": 341.3125936016732,
+                "radius": 80,
+                "eligibleWindows": 17,
+                "clusterWindows": 11,
+                "clusterWeightShare": 0.6457238426434617,
+                "clusterObserved_s": 5.3446505416723085,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.4559795673076923
+              },
+              "centerShift_pt": 158.91737176013788,
+              "replicated": false,
+              "status": "TRAIN_ONLY_UNCONFIRMED"
+            }
+          }
+        },
+        {
+          "run": "拇指",
+          "scene": "video",
+          "totalCompleteWindows": 119,
+          "lowMotionWindows": 88,
+          "rawHoverObserved_s": 67.97077583333521,
+          "train": {
+            "cx": 266.77692752892114,
+            "cy": 591.6064605412074,
+            "radius": 50,
+            "eligibleWindows": 66,
+            "clusterWindows": 50,
+            "clusterWeightShare": 0.7562176986202429,
+            "clusterObserved_s": 24.12110816668428,
+            "available": true,
+            "sceneBalanced": false,
+            "rawZMedian": 0.43599759615384615
+          },
+          "check": {
+            "cx": 253.13485613146528,
+            "cy": 547.6825194158585,
+            "radius": 50,
+            "eligibleWindows": 22,
+            "clusterWindows": 8,
+            "clusterWeightShare": 0.3647291118822341,
+            "clusterObserved_s": 3.898721083329292,
+            "available": true,
+            "sceneBalanced": false,
+            "rawZMedian": 0.6190655048076923
+          },
+          "centerShift_pt": 45.993681261629895,
+          "replicated": true,
+          "status": "REPLICATED_HOTSPOT",
+          "acquisition": {
+            "firstCandidate_s": 5,
+            "onlineTentative_s": 10,
+            "retrospectiveStable_s": 5,
+            "checkpoints": [
+              {
+                "elapsed_s": 2,
+                "totalCompleteWindows": 3,
+                "model": {
+                  "cx": 270.1751048826616,
+                  "cy": 552.3552670909161,
+                  "radius": 50,
+                  "eligibleWindows": 3,
+                  "clusterWindows": 3,
+                  "clusterWeightShare": 1.0,
+                  "clusterObserved_s": 1.4453950416682346,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.49759615384615385
+                },
+                "shiftFromPrevious_pt": null,
+                "distanceTo60s_pt": 39.398017673477796
+              },
+              {
+                "elapsed_s": 5,
+                "totalCompleteWindows": 9,
+                "model": {
+                  "cx": 267.6819633600825,
+                  "cy": 571.8274957887014,
+                  "radius": 50,
+                  "eligibleWindows": 8,
+                  "clusterWindows": 8,
+                  "clusterWeightShare": 1.0,
+                  "clusterObserved_s": 3.8544958750026126,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.4460637019230769
+                },
+                "shiftFromPrevious_pt": 19.631185524834287,
+                "distanceTo60s_pt": 19.7996600106305
+              },
+              {
+                "elapsed_s": 10,
+                "totalCompleteWindows": 17,
+                "model": {
+                  "cx": 267.80797244654343,
+                  "cy": 580.5597315889763,
+                  "radius": 50,
+                  "eligibleWindows": 16,
+                  "clusterWindows": 13,
+                  "clusterWeightShare": 0.8119037761876484,
+                  "clusterObserved_s": 6.236833916675096,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.39122596153846156
+                },
+                "shiftFromPrevious_pt": 8.73314492960431,
+                "distanceTo60s_pt": 11.094740833665986
+              },
+              {
+                "elapsed_s": 15,
+                "totalCompleteWindows": 25,
+                "model": {
+                  "cx": 268.04320498568114,
+                  "cy": 585.6874850118757,
+                  "radius": 50,
+                  "eligibleWindows": 22,
+                  "clusterWindows": 16,
+                  "clusterWeightShare": 0.726401253237866,
+                  "clusterObserved_s": 7.706275458342134,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.4124098557692308
+                },
+                "shiftFromPrevious_pt": 5.133146161324942,
+                "distanceTo60s_pt": 6.052910862909414
+              },
+              {
+                "elapsed_s": 20,
+                "totalCompleteWindows": 31,
+                "model": {
+                  "cx": 271.7373966120831,
+                  "cy": 593.4518035529626,
+                  "radius": 50,
+                  "eligibleWindows": 27,
+                  "clusterWindows": 19,
+                  "clusterWeightShare": 0.702238003989104,
+                  "clusterObserved_s": 9.145260916673578,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.41586538461538464
+                },
+                "shiftFromPrevious_pt": 8.59835415530465,
+                "distanceTo60s_pt": 5.292593348826206
+              },
+              {
+                "elapsed_s": 30,
+                "totalCompleteWindows": 42,
+                "model": {
+                  "cx": 267.3886792045689,
+                  "cy": 599.1581929402329,
+                  "radius": 50,
+                  "eligibleWindows": 38,
+                  "clusterWindows": 23,
+                  "clusterWeightShare": 0.603350983863032,
+                  "clusterObserved_s": 11.068523500012816,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.4202223557692308
+                },
+                "shiftFromPrevious_pt": 7.174553848816519,
+                "distanceTo60s_pt": 7.576470308735383
+              },
+              {
+                "elapsed_s": 45,
+                "totalCompleteWindows": 62,
+                "model": {
+                  "cx": 264.6880314175058,
+                  "cy": 589.8003000561622,
+                  "radius": 50,
+                  "eligibleWindows": 54,
+                  "clusterWindows": 40,
+                  "clusterWeightShare": 0.73905542053373,
+                  "clusterObserved_s": 19.261034125011065,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.4375751201923077
+                },
+                "shiftFromPrevious_pt": 9.739797621075587,
+                "distanceTo60s_pt": 2.761467483427051
+              },
+              {
+                "elapsed_s": 60,
+                "totalCompleteWindows": 76,
+                "model": {
+                  "cx": 266.77692752892114,
+                  "cy": 591.6064605412074,
+                  "radius": 50,
+                  "eligibleWindows": 66,
+                  "clusterWindows": 50,
+                  "clusterWeightShare": 0.7562176986202429,
+                  "clusterObserved_s": 24.12110816668428,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.43599759615384615
+                },
+                "shiftFromPrevious_pt": 2.761467483427051,
+                "distanceTo60s_pt": 0.0
+              }
+            ]
+          },
+          "sensitivity": {
+            "30": {
+              "train": {
+                "cx": 266.3508912089414,
+                "cy": 600.2124891485108,
+                "radius": 30,
+                "eligibleWindows": 66,
+                "clusterWindows": 42,
+                "clusterWeightShare": 0.634819081183276,
+                "clusterObserved_s": 20.248851291678875,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.4180438701923077
+              },
+              "check": {
+                "cx": 245.43333115107438,
+                "cy": 537.7031201710639,
+                "radius": 30,
+                "eligibleWindows": 22,
+                "clusterWindows": 6,
+                "clusterWeightShare": 0.2741236477107558,
+                "clusterObserved_s": 2.9302065833289817,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.6526442307692308
+              },
+              "centerShift_pt": 65.91635251387227,
+              "replicated": false,
+              "status": "TRAIN_ONLY_UNCONFIRMED"
+            },
+            "50": {
+              "train": {
+                "cx": 266.77692752892114,
+                "cy": 591.6064605412074,
+                "radius": 50,
+                "eligibleWindows": 66,
+                "clusterWindows": 50,
+                "clusterWeightShare": 0.7562176986202429,
+                "clusterObserved_s": 24.12110816668428,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.43599759615384615
+              },
+              "check": {
+                "cx": 253.13485613146528,
+                "cy": 547.6825194158585,
+                "radius": 50,
+                "eligibleWindows": 22,
+                "clusterWindows": 8,
+                "clusterWeightShare": 0.3647291118822341,
+                "clusterObserved_s": 3.898721083329292,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.6190655048076923
+              },
+              "centerShift_pt": 45.993681261629895,
+              "replicated": true,
+              "status": "REPLICATED_HOTSPOT"
+            },
+            "80": {
+              "train": {
+                "cx": 267.2174387096814,
+                "cy": 590.0215631778003,
+                "radius": 80,
+                "eligibleWindows": 66,
+                "clusterWindows": 60,
+                "clusterWeightShare": 0.9090020457656883,
+                "clusterObserved_s": 28.994477000018378,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.4607872596153846
+              },
+              "check": {
+                "cx": 271.27782873365214,
+                "cy": 541.6967670715558,
+                "radius": 80,
+                "eligibleWindows": 22,
+                "clusterWindows": 16,
+                "clusterWeightShare": 0.724993461177139,
+                "clusterObserved_s": 7.749716708327469,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.6856971153846154
+              },
+              "centerShift_pt": 48.495078985984435,
+              "replicated": true,
+              "status": "REPLICATED_HOTSPOT"
+            }
+          }
+        },
+        {
+          "run": "食指",
+          "scene": "news",
+          "totalCompleteWindows": 61,
+          "lowMotionWindows": 49,
+          "rawHoverObserved_s": 37.92164062500888,
+          "train": {
+            "cx": 284.08619577041605,
+            "cy": 366.59611834673854,
+            "radius": 50,
+            "eligibleWindows": 25,
+            "clusterWindows": 12,
+            "clusterWeightShare": 0.4796349823900526,
+            "clusterObserved_s": 5.8034281250002095,
+            "available": true,
+            "sceneBalanced": false,
+            "rawZMedian": 0.5615985576923077
+          },
+          "check": {
+            "cx": 239.87491845775222,
+            "cy": 534.914696981268,
+            "radius": 50,
+            "eligibleWindows": 24,
+            "clusterWindows": 16,
+            "clusterWeightShare": 0.6658150783535559,
+            "clusterObserved_s": 7.754864041664405,
+            "available": true,
+            "sceneBalanced": false,
+            "rawZMedian": 0.47213040865384615
+          },
+          "centerShift_pt": 174.0281039233765,
+          "replicated": false,
+          "status": "TRAIN_ONLY_UNCONFIRMED",
+          "acquisition": {
+            "firstCandidate_s": 20,
+            "onlineTentative_s": 30,
+            "retrospectiveStable_s": null,
+            "checkpoints": [
+              {
+                "elapsed_s": 2,
+                "totalCompleteWindows": 0,
+                "model": null,
+                "shiftFromPrevious_pt": null,
+                "distanceTo60s_pt": null
+              },
+              {
+                "elapsed_s": 5,
+                "totalCompleteWindows": 0,
+                "model": null,
+                "shiftFromPrevious_pt": null,
+                "distanceTo60s_pt": null
+              },
+              {
+                "elapsed_s": 10,
+                "totalCompleteWindows": 3,
+                "model": {
+                  "cx": 268.4751588101507,
+                  "cy": 511.42776488344686,
+                  "radius": 50,
+                  "eligibleWindows": 2,
+                  "clusterWindows": 2,
+                  "clusterWeightShare": 1.0,
+                  "clusterObserved_s": 0.9684125833337021,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.3396183894230769
+                },
+                "shiftFromPrevious_pt": null,
+                "distanceTo60s_pt": 145.67055403721366
+              },
+              {
+                "elapsed_s": 15,
+                "totalCompleteWindows": 7,
+                "model": {
+                  "cx": 263.9028991963129,
+                  "cy": 498.3373177449821,
+                  "radius": 50,
+                  "eligibleWindows": 4,
+                  "clusterWindows": 4,
+                  "clusterWeightShare": 1.0,
+                  "clusterObserved_s": 1.9236006249993807,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.4598106971153846
+                },
+                "shiftFromPrevious_pt": 13.865978662224752,
+                "distanceTo60s_pt": 133.27831436316254
+              },
+              {
+                "elapsed_s": 20,
+                "totalCompleteWindows": 10,
+                "model": {
+                  "cx": 267.95952566641404,
+                  "cy": 487.0185743836589,
+                  "radius": 50,
+                  "eligibleWindows": 7,
+                  "clusterWindows": 7,
+                  "clusterWeightShare": 1.0,
+                  "clusterObserved_s": 3.389240999997128,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.48783052884615385
+                },
+                "shiftFromPrevious_pt": 12.023733596409354,
+                "distanceTo60s_pt": 121.49747901338256
+              },
+              {
+                "elapsed_s": 30,
+                "totalCompleteWindows": 18,
+                "model": {
+                  "cx": 267.4973965377137,
+                  "cy": 479.91640791259334,
+                  "radius": 50,
+                  "eligibleWindows": 15,
+                  "clusterWindows": 9,
+                  "clusterWeightShare": 0.6010114141258528,
+                  "clusterObserved_s": 4.371830499992939,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.48783052884615385
+                },
+                "shiftFromPrevious_pt": 7.117185673728158,
+                "distanceTo60s_pt": 114.52805895182232
+              },
+              {
+                "elapsed_s": 45,
+                "totalCompleteWindows": 23,
+                "model": {
+                  "cx": 284.36492620999684,
+                  "cy": 362.07019579679513,
+                  "radius": 50,
+                  "eligibleWindows": 20,
+                  "clusterWindows": 11,
+                  "clusterWeightShare": 0.5489191373449414,
+                  "clusterObserved_s": 5.320069249999506,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5667067307692307
+                },
+                "shiftFromPrevious_pt": 119.04723124578352,
+                "distanceTo60s_pt": 4.534497280408831
+              },
+              {
+                "elapsed_s": 60,
+                "totalCompleteWindows": 30,
+                "model": {
+                  "cx": 284.08619577041605,
+                  "cy": 366.59611834673854,
+                  "radius": 50,
+                  "eligibleWindows": 25,
+                  "clusterWindows": 12,
+                  "clusterWeightShare": 0.4796349823900526,
+                  "clusterObserved_s": 5.8034281250002095,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5615985576923077
+                },
+                "shiftFromPrevious_pt": 4.534497280408831,
+                "distanceTo60s_pt": 0.0
+              }
+            ]
+          },
+          "sensitivity": {
+            "30": {
+              "train": {
+                "cx": 284.36492620999684,
+                "cy": 362.07019579679513,
+                "radius": 30,
+                "eligibleWindows": 25,
+                "clusterWindows": 11,
+                "clusterWeightShare": 0.4396868998937212,
+                "clusterObserved_s": 5.320069249999506,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5667067307692307
+              },
+              "check": {
+                "cx": 250.2477179012234,
+                "cy": 542.0482748714131,
+                "radius": 30,
+                "eligibleWindows": 24,
+                "clusterWindows": 9,
+                "clusterWeightShare": 0.3745656112750573,
+                "clusterObserved_s": 4.362630833329604,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.4307391826923077
+              },
+              "centerShift_pt": 183.18322207607793,
+              "replicated": false,
+              "status": "TRAIN_ONLY_UNCONFIRMED"
+            },
+            "50": {
+              "train": {
+                "cx": 284.08619577041605,
+                "cy": 366.59611834673854,
+                "radius": 50,
+                "eligibleWindows": 25,
+                "clusterWindows": 12,
+                "clusterWeightShare": 0.4796349823900526,
+                "clusterObserved_s": 5.8034281250002095,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5615985576923077
+              },
+              "check": {
+                "cx": 239.87491845775222,
+                "cy": 534.914696981268,
+                "radius": 50,
+                "eligibleWindows": 24,
+                "clusterWindows": 16,
+                "clusterWeightShare": 0.6658150783535559,
+                "clusterObserved_s": 7.754864041664405,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.47213040865384615
+              },
+              "centerShift_pt": 174.0281039233765,
+              "replicated": false,
+              "status": "TRAIN_ONLY_UNCONFIRMED"
+            },
+            "80": {
+              "train": {
+                "cx": 278.83674927326877,
+                "cy": 400.12096790414665,
+                "radius": 80,
+                "eligibleWindows": 25,
+                "clusterWindows": 17,
+                "clusterWeightShare": 0.6815324015754072,
+                "clusterObserved_s": 8.24632158332679,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5667067307692307
+              },
+              "check": {
+                "cx": 242.08988943927093,
+                "cy": 519.6792224193723,
+                "radius": 80,
+                "eligibleWindows": 24,
+                "clusterWindows": 20,
+                "clusterWeightShare": 0.8336834856308852,
+                "clusterObserved_s": 9.710056583331607,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5196814903846154
+              },
+              "centerShift_pt": 125.07800738094191,
+              "replicated": false,
+              "status": "TRAIN_ONLY_UNCONFIRMED"
+            }
+          }
+        },
+        {
+          "run": "食指",
+          "scene": "notes",
+          "totalCompleteWindows": 108,
+          "lowMotionWindows": 89,
+          "rawHoverObserved_s": 64.23562037500233,
+          "train": {
+            "cx": 232.30324897144428,
+            "cy": 492.9858723627653,
+            "radius": 50,
+            "eligibleWindows": 11,
+            "clusterWindows": 8,
+            "clusterWeightShare": 0.726612729708342,
+            "clusterObserved_s": 3.885436624997965,
+            "available": true,
+            "sceneBalanced": false,
+            "rawZMedian": 0.7282151442307692
+          },
+          "check": {
+            "cx": 229.85128233900025,
+            "cy": 455.9878662427561,
+            "radius": 50,
+            "eligibleWindows": 77,
+            "clusterWindows": 55,
+            "clusterWeightShare": 0.7116081536450243,
+            "clusterObserved_s": 26.407442791660287,
+            "available": true,
+            "sceneBalanced": false,
+            "rawZMedian": 0.7265625
+          },
+          "centerShift_pt": 37.07916661985345,
+          "replicated": true,
+          "status": "REPLICATED_HOTSPOT",
+          "acquisition": {
+            "firstCandidate_s": 60,
+            "onlineTentative_s": null,
+            "retrospectiveStable_s": 60,
+            "checkpoints": [
+              {
+                "elapsed_s": 2,
+                "totalCompleteWindows": 0,
+                "model": null,
+                "shiftFromPrevious_pt": null,
+                "distanceTo60s_pt": null
+              },
+              {
+                "elapsed_s": 5,
+                "totalCompleteWindows": 0,
+                "model": null,
+                "shiftFromPrevious_pt": null,
+                "distanceTo60s_pt": null
+              },
+              {
+                "elapsed_s": 10,
+                "totalCompleteWindows": 0,
+                "model": null,
+                "shiftFromPrevious_pt": null,
+                "distanceTo60s_pt": null
+              },
+              {
+                "elapsed_s": 15,
+                "totalCompleteWindows": 4,
+                "model": {
+                  "cx": 316.3400077677655,
+                  "cy": 316.84645200306744,
+                  "radius": 50,
+                  "eligibleWindows": 2,
+                  "clusterWindows": 2,
+                  "clusterWeightShare": 1.0,
+                  "clusterObserved_s": 0.9821504166648083,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.6382962740384615
+                },
+                "shiftFromPrevious_pt": null,
+                "distanceTo60s_pt": 195.15960707493088
+              },
+              {
+                "elapsed_s": 20,
+                "totalCompleteWindows": 6,
+                "model": {
+                  "cx": 316.3400077677655,
+                  "cy": 316.84645200306744,
+                  "radius": 50,
+                  "eligibleWindows": 2,
+                  "clusterWindows": 2,
+                  "clusterWeightShare": 1.0,
+                  "clusterObserved_s": 0.9821504166648083,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.6382962740384615
+                },
+                "shiftFromPrevious_pt": 0.0,
+                "distanceTo60s_pt": 195.15960707493088
+              },
+              {
+                "elapsed_s": 30,
+                "totalCompleteWindows": 9,
+                "model": {
+                  "cx": 316.3400077677655,
+                  "cy": 316.84645200306744,
+                  "radius": 50,
+                  "eligibleWindows": 2,
+                  "clusterWindows": 2,
+                  "clusterWeightShare": 1.0,
+                  "clusterObserved_s": 0.9821504166648083,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.6382962740384615
+                },
+                "shiftFromPrevious_pt": 0.0,
+                "distanceTo60s_pt": 195.15960707493088
+              },
+              {
+                "elapsed_s": 45,
+                "totalCompleteWindows": 15,
+                "model": {
+                  "cx": 235.70790527625135,
+                  "cy": 525.4843241384843,
+                  "radius": 50,
+                  "eligibleWindows": 5,
+                  "clusterWindows": 3,
+                  "clusterWeightShare": 0.5980694807018953,
+                  "clusterObserved_s": 1.461432166663144,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5928485576923077
+                },
+                "shiftFromPrevious_pt": 223.67677045548697,
+                "distanceTo60s_pt": 32.67630720220079
+              },
+              {
+                "elapsed_s": 60,
+                "totalCompleteWindows": 25,
+                "model": {
+                  "cx": 232.30324897144428,
+                  "cy": 492.9858723627653,
+                  "radius": 50,
+                  "eligibleWindows": 11,
+                  "clusterWindows": 8,
+                  "clusterWeightShare": 0.726612729708342,
+                  "clusterObserved_s": 3.885436624997965,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.7282151442307692
+                },
+                "shiftFromPrevious_pt": 32.67630720220079,
+                "distanceTo60s_pt": 0.0
+              }
+            ]
+          },
+          "sensitivity": {
+            "30": {
+              "train": {
+                "cx": 227.96520756939321,
+                "cy": 465.93615174957114,
+                "radius": 30,
+                "eligibleWindows": 11,
+                "clusterWindows": 5,
+                "clusterWeightShare": 0.4520451580993547,
+                "clusterObserved_s": 2.4172337500021968,
+                "available": false,
+                "sceneBalanced": false,
+                "rawZMedian": 0.7292668269230769
+              },
+              "check": {
+                "cx": 230.21325347324046,
+                "cy": 459.0074873000191,
+                "radius": 30,
+                "eligibleWindows": 77,
+                "clusterWindows": 51,
+                "clusterWeightShare": 0.6599749250158338,
+                "clusterObserved_s": 24.491358041661442,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.7256610576923077
+              },
+              "centerShift_pt": 7.28423650359397,
+              "replicated": false,
+              "status": "INSUFFICIENT_HOVER"
+            },
+            "50": {
+              "train": {
+                "cx": 232.30324897144428,
+                "cy": 492.9858723627653,
+                "radius": 50,
+                "eligibleWindows": 11,
+                "clusterWindows": 8,
+                "clusterWeightShare": 0.726612729708342,
+                "clusterObserved_s": 3.885436624997965,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.7282151442307692
+              },
+              "check": {
+                "cx": 229.85128233900025,
+                "cy": 455.9878662427561,
+                "radius": 50,
+                "eligibleWindows": 77,
+                "clusterWindows": 55,
+                "clusterWeightShare": 0.7116081536450243,
+                "clusterObserved_s": 26.407442791660287,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.7265625
+              },
+              "centerShift_pt": 37.07916661985345,
+              "replicated": true,
+              "status": "REPLICATED_HOTSPOT"
+            },
+            "80": {
+              "train": {
+                "cx": 232.30324897144428,
+                "cy": 492.9858723627653,
+                "radius": 80,
+                "eligibleWindows": 11,
+                "clusterWindows": 9,
+                "clusterWeightShare": 0.8163287516657474,
+                "clusterObserved_s": 4.365177624997159,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.7271634615384616
+              },
+              "check": {
+                "cx": 229.6145997925495,
+                "cy": 461.0268283205267,
+                "radius": 80,
+                "eligibleWindows": 77,
+                "clusterWindows": 55,
+                "clusterWeightShare": 0.7116081536450243,
+                "clusterObserved_s": 26.407442791660287,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.7265625
+              },
+              "centerShift_pt": 32.071939924191014,
+              "replicated": true,
+              "status": "REPLICATED_HOTSPOT"
+            }
+          }
+        },
+        {
+          "run": "食指",
+          "scene": "video",
+          "totalCompleteWindows": 75,
+          "lowMotionWindows": 22,
+          "rawHoverObserved_s": 52.97109512503448,
+          "train": {
+            "cx": 238.60179343077291,
+            "cy": 550.2692721780082,
+            "radius": 50,
+            "eligibleWindows": 16,
+            "clusterWindows": 8,
+            "clusterWeightShare": 0.5029478126104445,
+            "clusterObserved_s": 3.8729308333349763,
+            "available": true,
+            "sceneBalanced": false,
+            "rawZMedian": 0.5471754807692308
+          },
+          "check": {
+            "cx": 250.31414466709865,
+            "cy": 587.6499142861824,
+            "radius": 50,
+            "eligibleWindows": 6,
+            "clusterWindows": 4,
+            "clusterWeightShare": 0.6598475852671979,
+            "clusterObserved_s": 1.9191526249996969,
+            "available": false,
+            "sceneBalanced": false,
+            "rawZMedian": 0.3756760817307692
+          },
+          "centerShift_pt": 39.172587046332055,
+          "replicated": false,
+          "status": "TRAIN_ONLY_UNCONFIRMED",
+          "acquisition": {
+            "firstCandidate_s": 30,
+            "onlineTentative_s": 60,
+            "retrospectiveStable_s": null,
+            "checkpoints": [
+              {
+                "elapsed_s": 2,
+                "totalCompleteWindows": 2,
+                "model": {
+                  "cx": 231.62695987310377,
+                  "cy": 550.1005332837997,
+                  "radius": 50,
+                  "eligibleWindows": 1,
+                  "clusterWindows": 1,
+                  "clusterWeightShare": 1.0,
+                  "clusterObserved_s": 0.4836542916673352,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.4921875
+                },
+                "shiftFromPrevious_pt": null,
+                "distanceTo60s_pt": 6.976874369773783
+              },
+              {
+                "elapsed_s": 5,
+                "totalCompleteWindows": 5,
+                "model": {
+                  "cx": 231.62695987310377,
+                  "cy": 550.1005332837997,
+                  "radius": 50,
+                  "eligibleWindows": 2,
+                  "clusterWindows": 1,
+                  "clusterWeightShare": 0.5013209246044468,
+                  "clusterObserved_s": 0.4836542916673352,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.4921875
+                },
+                "shiftFromPrevious_pt": 0.0,
+                "distanceTo60s_pt": 6.976874369773783
+              },
+              {
+                "elapsed_s": 10,
+                "totalCompleteWindows": 10,
+                "model": {
+                  "cx": 241.57524943396695,
+                  "cy": 559.3675189437091,
+                  "radius": 50,
+                  "eligibleWindows": 4,
+                  "clusterWindows": 3,
+                  "clusterWeightShare": 0.7489711247949449,
+                  "clusterObserved_s": 1.4354291250019742,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5042067307692307
+                },
+                "shiftFromPrevious_pt": 13.5957893631722,
+                "distanceTo60s_pt": 9.571809380285272
+              },
+              {
+                "elapsed_s": 15,
+                "totalCompleteWindows": 12,
+                "model": {
+                  "cx": 241.57524943396695,
+                  "cy": 559.3675189437091,
+                  "radius": 50,
+                  "eligibleWindows": 4,
+                  "clusterWindows": 3,
+                  "clusterWeightShare": 0.7489711247949449,
+                  "clusterObserved_s": 1.4354291250019742,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5042067307692307
+                },
+                "shiftFromPrevious_pt": 0.0,
+                "distanceTo60s_pt": 9.571809380285272
+              },
+              {
+                "elapsed_s": 20,
+                "totalCompleteWindows": 19,
+                "model": {
+                  "cx": 299.837140459363,
+                  "cy": 387.85576096016536,
+                  "radius": 50,
+                  "eligibleWindows": 8,
+                  "clusterWindows": 4,
+                  "clusterWeightShare": 0.5039904453009189,
+                  "clusterObserved_s": 1.9277956666664977,
+                  "available": false,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.6637620192307693
+                },
+                "shiftFromPrevious_pt": 181.1373265576723,
+                "distanceTo60s_pt": 173.57395067181088
+              },
+              {
+                "elapsed_s": 30,
+                "totalCompleteWindows": 29,
+                "model": {
+                  "cx": 295.05132615253467,
+                  "cy": 383.76461326801365,
+                  "radius": 50,
+                  "eligibleWindows": 12,
+                  "clusterWindows": 6,
+                  "clusterWeightShare": 0.5011535316992405,
+                  "clusterObserved_s": 2.8738602083358273,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.6574519230769231
+                },
+                "shiftFromPrevious_pt": 6.296150253801214,
+                "distanceTo60s_pt": 175.8133987591358
+              },
+              {
+                "elapsed_s": 45,
+                "totalCompleteWindows": 33,
+                "model": {
+                  "cx": 242.46733395107054,
+                  "cy": 554.3587948264186,
+                  "radius": 50,
+                  "eligibleWindows": 14,
+                  "clusterWindows": 7,
+                  "clusterWeightShare": 0.5032406534645082,
+                  "clusterObserved_s": 3.3792207916703774,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5090144230769231
+                },
+                "shiftFromPrevious_pt": 178.51456808178338,
+                "distanceTo60s_pt": 5.627308326893435
+              },
+              {
+                "elapsed_s": 60,
+                "totalCompleteWindows": 42,
+                "model": {
+                  "cx": 238.60179343077291,
+                  "cy": 550.2692721780082,
+                  "radius": 50,
+                  "eligibleWindows": 16,
+                  "clusterWindows": 8,
+                  "clusterWeightShare": 0.5029478126104445,
+                  "clusterObserved_s": 3.8729308333349763,
+                  "available": true,
+                  "sceneBalanced": false,
+                  "rawZMedian": 0.5471754807692308
+                },
+                "shiftFromPrevious_pt": 5.627308326893435,
+                "distanceTo60s_pt": 0.0
+              }
+            ]
+          },
+          "sensitivity": {
+            "30": {
+              "train": {
+                "cx": 242.6450084261115,
+                "cy": 562.1944581305296,
+                "radius": 30,
+                "eligibleWindows": 16,
+                "clusterWindows": 6,
+                "clusterWeightShare": 0.3752947408144654,
+                "clusterObserved_s": 2.889943125002901,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5066105769230769
+              },
+              "check": {
+                "cx": 250.31414466709865,
+                "cy": 587.6499142861824,
+                "radius": 30,
+                "eligibleWindows": 6,
+                "clusterWindows": 4,
+                "clusterWeightShare": 0.6598475852671979,
+                "clusterObserved_s": 1.9191526249996969,
+                "available": false,
+                "sceneBalanced": false,
+                "rawZMedian": 0.3756760817307692
+              },
+              "centerShift_pt": 26.585633315292355,
+              "replicated": false,
+              "status": "TRAIN_ONLY_UNCONFIRMED"
+            },
+            "50": {
+              "train": {
+                "cx": 238.60179343077291,
+                "cy": 550.2692721780082,
+                "radius": 50,
+                "eligibleWindows": 16,
+                "clusterWindows": 8,
+                "clusterWeightShare": 0.5029478126104445,
+                "clusterObserved_s": 3.8729308333349763,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5471754807692308
+              },
+              "check": {
+                "cx": 250.31414466709865,
+                "cy": 587.6499142861824,
+                "radius": 50,
+                "eligibleWindows": 6,
+                "clusterWindows": 4,
+                "clusterWeightShare": 0.6598475852671979,
+                "clusterObserved_s": 1.9191526249996969,
+                "available": false,
+                "sceneBalanced": false,
+                "rawZMedian": 0.3756760817307692
+              },
+              "centerShift_pt": 39.172587046332055,
+              "replicated": false,
+              "status": "TRAIN_ONLY_UNCONFIRMED"
+            },
+            "80": {
+              "train": {
+                "cx": 247.686901186394,
+                "cy": 547.7978411753821,
+                "radius": 80,
+                "eligibleWindows": 16,
+                "clusterWindows": 9,
+                "clusterWeightShare": 0.5668183204338304,
+                "clusterObserved_s": 4.364763291669078,
+                "available": true,
+                "sceneBalanced": false,
+                "rawZMedian": 0.5426682692307693
+              },
+              "check": {
+                "cx": 250.31414466709865,
+                "cy": 587.6499142861824,
+                "radius": 80,
+                "eligibleWindows": 6,
+                "clusterWindows": 4,
+                "clusterWeightShare": 0.6598475852671979,
+                "clusterObserved_s": 1.9191526249996969,
+                "available": false,
+                "sceneBalanced": false,
+                "rawZMedian": 0.3756760817307692
+              },
+              "centerShift_pt": 39.93857958835632,
+              "replicated": false,
+              "status": "TRAIN_ONLY_UNCONFIRMED"
+            }
+          }
+        }
+      ],
+      "crossSceneDistances": [
+        {
+          "run": "拇指",
+          "scene1": "news",
+          "scene2": "notes",
+          "centerDistance_pt": 40.884135699244105
+        },
+        {
+          "run": "拇指",
+          "scene1": "news",
+          "scene2": "video",
+          "centerDistance_pt": 127.00801216052115
+        },
+        {
+          "run": "拇指",
+          "scene1": "notes",
+          "scene2": "video",
+          "centerDistance_pt": 89.4250481249085
+        },
+        {
+          "run": "食指",
+          "scene1": "news",
+          "scene2": "notes",
+          "centerDistance_pt": 136.58639573331195
+        },
+        {
+          "run": "食指",
+          "scene1": "news",
+          "scene2": "video",
+          "centerDistance_pt": 189.22118880960397
+        },
+        {
+          "run": "食指",
+          "scene1": "notes",
+          "scene2": "video",
+          "centerDistance_pt": 57.628634867564884
+        }
+      ],
+      "aSameReadingFuture": [
+        {
+          "run": "拇指",
+          "scene": "news",
+          "naturalWindows": 3,
+          "suppressed": 2,
+          "trainingModelUsable": true,
+          "c3ModelAgeMedian_s": 648.9883592916667
+        },
+        {
+          "run": "拇指",
+          "scene": "notes",
+          "naturalWindows": 7,
+          "suppressed": 0,
+          "trainingModelUsable": true,
+          "c3ModelAgeMedian_s": 577.3329346249993
+        },
+        {
+          "run": "拇指",
+          "scene": "video",
+          "naturalWindows": 15,
+          "suppressed": 2,
+          "trainingModelUsable": true,
+          "c3ModelAgeMedian_s": 349.86556416666645
+        },
+        {
+          "run": "食指",
+          "scene": "news",
+          "naturalWindows": 7,
+          "suppressed": 0,
+          "trainingModelUsable": true,
+          "c3ModelAgeMedian_s": 562.1394950416652
+        },
+        {
+          "run": "食指",
+          "scene": "notes",
+          "naturalWindows": 5,
+          "suppressed": 0,
+          "trainingModelUsable": true,
+          "c3ModelAgeMedian_s": 622.7115574583331
+        },
+        {
+          "run": "食指",
+          "scene": "video",
+          "naturalWindows": 18,
+          "suppressed": 0,
+          "trainingModelUsable": true,
+          "c3ModelAgeMedian_s": 436.1258925208349
+        }
+      ],
+      "c3Base": {
+        "active": 27,
+        "natural": 69,
+        "true_active": 23,
+        "missed_active": 4,
+        "natural_called_active": 20,
+        "true_natural": 49,
+        "active_recall": 0.8518518518518519,
+        "natural_specificity": 0.7101449275362319,
+        "balanced_accuracy": 0.7809983896940419,
+        "auc": 0.8174986580783682
+      },
+      "c3Filter": {
+        "30": {
+          "homeOnly": {
+            "active": 27,
+            "natural": 69,
+            "true_active": 27,
+            "missed_active": 0,
+            "natural_called_active": 69,
+            "true_natural": 0,
+            "active_recall": 1.0,
+            "natural_specificity": 0.0,
+            "balanced_accuracy": 0.5,
+            "auc": 0.5
+          },
+          "withAB": {
+            "active": 27,
+            "natural": 69,
+            "true_active": 23,
+            "missed_active": 4,
+            "natural_called_active": 20,
+            "true_natural": 49,
+            "active_recall": 0.8518518518518519,
+            "natural_specificity": 0.7101449275362319,
+            "balanced_accuracy": 0.7809983896940419,
+            "auc": 0.8174986580783682
+          },
+          "naturalSuppressed": 0,
+          "activeSuppressed": 0,
+          "usableWindows": 13
+        },
+        "50": {
+          "homeOnly": {
+            "active": 27,
+            "natural": 69,
+            "true_active": 26,
+            "missed_active": 1,
+            "natural_called_active": 69,
+            "true_natural": 0,
+            "active_recall": 0.9629629629629629,
+            "natural_specificity": 0.0,
+            "balanced_accuracy": 0.48148148148148145,
+            "auc": 0.48148148148148145
+          },
+          "withAB": {
+            "active": 27,
+            "natural": 69,
+            "true_active": 22,
+            "missed_active": 5,
+            "natural_called_active": 20,
+            "true_natural": 49,
+            "active_recall": 0.8148148148148148,
+            "natural_specificity": 0.7101449275362319,
+            "balanced_accuracy": 0.7624798711755234,
+            "auc": 0.7815351583467526
+          },
+          "naturalSuppressed": 0,
+          "activeSuppressed": 1,
+          "usableWindows": 60
+        },
+        "80": {
+          "homeOnly": {
+            "active": 27,
+            "natural": 69,
+            "true_active": 26,
+            "missed_active": 1,
+            "natural_called_active": 64,
+            "true_natural": 5,
+            "active_recall": 0.9629629629629629,
+            "natural_specificity": 0.07246376811594203,
+            "balanced_accuracy": 0.5177133655394525,
+            "auc": 0.5177133655394525
+          },
+          "withAB": {
+            "active": 27,
+            "natural": 69,
+            "true_active": 22,
+            "missed_active": 5,
+            "natural_called_active": 18,
+            "true_natural": 51,
+            "active_recall": 0.8148148148148148,
+            "natural_specificity": 0.7391304347826086,
+            "balanced_accuracy": 0.7769726247987117,
+            "auc": 0.7903918411164788
+          },
+          "naturalSuppressed": 5,
+          "activeSuppressed": 1,
+          "usableWindows": 60
+        }
+      },
+      "c3Scenes": {
+        "news": {
+          "base": {
+            "active": 8,
+            "natural": 12,
+            "true_active": 7,
+            "missed_active": 1,
+            "natural_called_active": 5,
+            "true_natural": 7,
+            "active_recall": 0.875,
+            "natural_specificity": 0.5833333333333334,
+            "balanced_accuracy": 0.7291666666666667,
+            "auc": 0.6875
+          },
+          "homeOnly": {
+            "active": 8,
+            "natural": 12,
+            "true_active": 8,
+            "missed_active": 0,
+            "natural_called_active": 12,
+            "true_natural": 0,
+            "active_recall": 1.0,
+            "natural_specificity": 0.0,
+            "balanced_accuracy": 0.5,
+            "auc": 0.5
+          },
+          "withAB": {
+            "active": 8,
+            "natural": 12,
+            "true_active": 7,
+            "missed_active": 1,
+            "natural_called_active": 5,
+            "true_natural": 7,
+            "active_recall": 0.875,
+            "natural_specificity": 0.5833333333333334,
+            "balanced_accuracy": 0.7291666666666667,
+            "auc": 0.6875
+          }
+        },
+        "notes": {
+          "base": {
+            "active": 9,
+            "natural": 5,
+            "true_active": 8,
+            "missed_active": 1,
+            "natural_called_active": 2,
+            "true_natural": 3,
+            "active_recall": 0.8888888888888888,
+            "natural_specificity": 0.6,
+            "balanced_accuracy": 0.7444444444444445,
+            "auc": 0.7777777777777778
+          },
+          "homeOnly": {
+            "active": 9,
+            "natural": 5,
+            "true_active": 9,
+            "missed_active": 0,
+            "natural_called_active": 5,
+            "true_natural": 0,
+            "active_recall": 1.0,
+            "natural_specificity": 0.0,
+            "balanced_accuracy": 0.5,
+            "auc": 0.5
+          },
+          "withAB": {
+            "active": 9,
+            "natural": 5,
+            "true_active": 8,
+            "missed_active": 1,
+            "natural_called_active": 2,
+            "true_natural": 3,
+            "active_recall": 0.8888888888888888,
+            "natural_specificity": 0.6,
+            "balanced_accuracy": 0.7444444444444445,
+            "auc": 0.7777777777777778
+          }
+        },
+        "video": {
+          "base": {
+            "active": 10,
+            "natural": 52,
+            "true_active": 8,
+            "missed_active": 2,
+            "natural_called_active": 13,
+            "true_natural": 39,
+            "active_recall": 0.8,
+            "natural_specificity": 0.75,
+            "balanced_accuracy": 0.775,
+            "auc": 0.8653846153846154
+          },
+          "homeOnly": {
+            "active": 10,
+            "natural": 52,
+            "true_active": 9,
+            "missed_active": 1,
+            "natural_called_active": 52,
+            "true_natural": 0,
+            "active_recall": 0.9,
+            "natural_specificity": 0.0,
+            "balanced_accuracy": 0.45,
+            "auc": 0.45
+          },
+          "withAB": {
+            "active": 10,
+            "natural": 52,
+            "true_active": 7,
+            "missed_active": 3,
+            "natural_called_active": 13,
+            "true_natural": 39,
+            "active_recall": 0.7,
+            "natural_specificity": 0.75,
+            "balanced_accuracy": 0.725,
+            "auc": 0.7673076923076924
+          }
+        }
+      },
+      "bTransferRisk": [
+        {
+          "task": "B1",
+          "run": "拇指",
+          "windows": 6,
+          "suppressed": 0,
+          "usable": 6
+        },
+        {
+          "task": "B1",
+          "run": "食指",
+          "windows": 6,
+          "suppressed": 0,
+          "usable": 0
+        },
+        {
+          "task": "B2",
+          "run": "拇指",
+          "windows": 6,
+          "suppressed": 0,
+          "usable": 6
+        },
+        {
+          "task": "B2",
+          "run": "食指",
+          "windows": 6,
+          "suppressed": 0,
+          "usable": 0
+        },
+        {
+          "task": "B3",
+          "run": "拇指",
+          "windows": 18,
+          "suppressed": 0,
+          "usable": 18
+        },
+        {
+          "task": "B3",
+          "run": "食指",
+          "windows": 18,
+          "suppressed": 0,
+          "usable": 0
+        }
+      ],
+      "status": "EXPLORATORY_OBSERVED_PHONE_XY_HOTSPOTS_NOT_CONFIRMED_REST",
+      "cValidation": "RETROSPECTIVE_SAME_PARTICIPANT"
+    },
+    "intent_exploration.json": {
+      "method": "C3 first 500ms measured-window, two XY features, cross-posture same participant",
+      "limitations": [
+        "one participant",
+        "instruction proxy, not individual mental-intent ground truth",
+        "successful active windows only",
+        "scene geometry and task-order confounding"
+      ],
+      "distributions": [
+        {
+          "scene": "news",
+          "label": 0,
+          "n": 12,
+          "trials": 6,
+          "speed_median": 36.7717905540338,
+          "rms_median": 7.256764570738449
+        },
+        {
+          "scene": "news",
+          "label": 1,
+          "n": 8,
+          "trials": 8,
+          "speed_median": 41.791569186149886,
+          "rms_median": 4.922795177524012
+        },
+        {
+          "scene": "notes",
+          "label": 0,
+          "n": 5,
+          "trials": 3,
+          "speed_median": 57.16790213132692,
+          "rms_median": 7.6491785523296905
+        },
+        {
+          "scene": "notes",
+          "label": 1,
+          "n": 9,
+          "trials": 9,
+          "speed_median": 34.84796124976189,
+          "rms_median": 4.497838804954572
+        },
+        {
+          "scene": "video",
+          "label": 0,
+          "n": 52,
+          "trials": 11,
+          "speed_median": 81.76985204558221,
+          "rms_median": 15.48546749832255
+        },
+        {
+          "scene": "video",
+          "label": 1,
+          "n": 10,
+          "trials": 10,
+          "speed_median": 30.229651998905126,
+          "rms_median": 4.145321930592912
+        }
+      ],
+      "cross_run": [
+        {
+          "train": "拇指",
+          "test": "食指",
+          "features": [
+            "speed_median_pt_s",
+            "rms_pt"
+          ],
+          "threshold": 0.5,
+          "train_active": 13,
+          "train_natural": 47,
+          "train_trials": 25,
+          "test_trials": 22,
+          "coefficients": [
+            -0.011192178782317772,
+            -0.07378934588213311,
+            -0.6158903922480325
+          ],
+          "active": 14,
+          "natural": 22,
+          "true_active": 12,
+          "missed_active": 2,
+          "natural_called_active": 9,
+          "true_natural": 13,
+          "active_recall": 0.8571428571428571,
+          "natural_specificity": 0.5909090909090909,
+          "balanced_accuracy": 0.724025974025974,
+          "auc": 0.7175324675324676,
+          "scenes": {
+            "news": {
+              "active": 4,
+              "natural": 3,
+              "true_active": 4,
+              "missed_active": 0,
+              "natural_called_active": 0,
+              "true_natural": 3,
+              "active_recall": 1.0,
+              "natural_specificity": 1.0,
+              "balanced_accuracy": 1.0,
+              "auc": 1.0
+            },
+            "notes": {
+              "active": 4,
+              "natural": 3,
+              "true_active": 3,
+              "missed_active": 1,
+              "natural_called_active": 1,
+              "true_natural": 2,
+              "active_recall": 0.75,
+              "natural_specificity": 0.6666666666666666,
+              "balanced_accuracy": 0.7083333333333333,
+              "auc": 0.6666666666666666
+            },
+            "video": {
+              "active": 6,
+              "natural": 16,
+              "true_active": 5,
+              "missed_active": 1,
+              "natural_called_active": 8,
+              "true_natural": 8,
+              "active_recall": 0.8333333333333334,
+              "natural_specificity": 0.5,
+              "balanced_accuracy": 0.6666666666666667,
+              "auc": 0.6979166666666666
+            }
+          }
+        },
+        {
+          "train": "食指",
+          "test": "拇指",
+          "features": [
+            "speed_median_pt_s",
+            "rms_pt"
+          ],
+          "threshold": 0.5,
+          "train_active": 14,
+          "train_natural": 22,
+          "train_trials": 22,
+          "test_trials": 25,
+          "coefficients": [
+            -0.00911192901700733,
+            0.4308001044143832,
+            -0.9745867464114732
+          ],
+          "active": 13,
+          "natural": 47,
+          "true_active": 10,
+          "missed_active": 3,
+          "natural_called_active": 11,
+          "true_natural": 36,
+          "active_recall": 0.7692307692307693,
+          "natural_specificity": 0.7659574468085106,
+          "balanced_accuracy": 0.76759410801964,
+          "auc": 0.8461538461538461,
+          "scenes": {
+            "news": {
+              "active": 4,
+              "natural": 9,
+              "true_active": 3,
+              "missed_active": 1,
+              "natural_called_active": 5,
+              "true_natural": 4,
+              "active_recall": 0.75,
+              "natural_specificity": 0.4444444444444444,
+              "balanced_accuracy": 0.5972222222222222,
+              "auc": 0.5833333333333334
+            },
+            "notes": {
+              "active": 5,
+              "natural": 2,
+              "true_active": 4,
+              "missed_active": 1,
+              "natural_called_active": 1,
+              "true_natural": 1,
+              "active_recall": 0.8,
+              "natural_specificity": 0.5,
+              "balanced_accuracy": 0.65,
+              "auc": 0.7
+            },
+            "video": {
+              "active": 4,
+              "natural": 36,
+              "true_active": 3,
+              "missed_active": 1,
+              "natural_called_active": 5,
+              "true_natural": 31,
+              "active_recall": 0.75,
+              "natural_specificity": 0.8611111111111112,
+              "balanced_accuracy": 0.8055555555555556,
+              "auc": 0.9166666666666666
+            }
+          }
+        }
+      ],
+      "intentional_moving_hover": {
+        "task": "B4",
+        "valid_closures": 7
+      }
+    }
+  }
+}

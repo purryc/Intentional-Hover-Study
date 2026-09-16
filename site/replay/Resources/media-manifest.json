@@ -1,0 +1,47 @@
+{
+  "title": "Big Buck Bunny",
+  "author": "Blender Foundation",
+  "year": 2008,
+  "license": "CC BY 3.0",
+  "licenseURL": "https://creativecommons.org/licenses/by/3.0/",
+  "source": "https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_640x360.m4v.zip",
+  "changes": "Six silent 25-second portrait 390x694 excerpts; moving blurred background, full-width original image centered; extracted original cover frames",
+  "clips": [
+    {
+      "id": "video-0",
+      "duration": 25,
+      "sourceStart": 40,
+      "sha256": "a85c5633968b5ef439acceea38430161818b54b39d649cf0b18ec3e71a615539"
+    },
+    {
+      "id": "video-1",
+      "duration": 25,
+      "sourceStart": 100,
+      "sha256": "4dba67c69fe142ea6cf7e4bc2780653a0c80d8119c7bdad61b51feda874b4e3c"
+    },
+    {
+      "id": "video-2",
+      "duration": 25,
+      "sourceStart": 160,
+      "sha256": "14d6f7c0dd6ebd04812f2d1bd2a0d74b5f5f0152a33aab32ec5868ccb8f1efa9"
+    },
+    {
+      "id": "video-3",
+      "duration": 25,
+      "sourceStart": 220,
+      "sha256": "f91b618fb90bfeb4840673a4fd70da96abe4f3db5520eaf62d87ac626514a00d"
+    },
+    {
+      "id": "video-4",
+      "duration": 25,
+      "sourceStart": 320,
+      "sha256": "fe4cad6e2a63227dad3a129e7ce6cd416fb267f6a60dfbd5c1f489c1da7230f2"
+    },
+    {
+      "id": "video-5",
+      "duration": 25,
+      "sourceStart": 440,
+      "sha256": "ff3d298ba4dd734351b93a0c3371c8080a6c7ac2f2a7021a061ae3cb572086c9"
+    }
+  ]
+}
